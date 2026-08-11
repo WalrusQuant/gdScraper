@@ -970,15 +970,16 @@
       transition: width 0.5s ease;
     }
 
-    .sbar-fill-red { background: linear-gradient(90deg, #a02020, var(--red)); }
-    .sbar-fill-gold { background: linear-gradient(90deg, #c07a10, var(--orange)); }
-    .sbar-fill-purple { background: linear-gradient(90deg, #6a3d8a, var(--purple)); }
-    .sbar-fill-teal { background: linear-gradient(90deg, #1a8a4a, var(--teal)); }
+    /* Soft fills — no neon gradients */
+    .sbar-fill-red { background: rgba(227, 28, 35, 0.55); }
+    .sbar-fill-gold { background: rgba(212, 160, 23, 0.5); }
+    .sbar-fill-purple { background: rgba(107, 63, 160, 0.55); }
+    .sbar-fill-teal { background: rgba(42, 157, 110, 0.5); }
 
     .sbar-val {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.62rem;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       text-align: right;
     }
 
@@ -986,8 +987,9 @@
     .trend-chart {
       display: flex;
       align-items: flex-end;
-      gap: 3px;
-      padding-top: 0.5rem;
+      gap: 4px;
+      padding-top: 0.35rem;
+      min-height: 140px;
     }
 
     .trend-col {
@@ -995,28 +997,37 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 3px;
+      justify-content: flex-end;
+      gap: 4px;
       min-width: 0;
     }
 
+    /* Muted solid blue — readable, not a fire gradient */
     .trend-bar {
       width: 100%;
-      max-width: 24px;
+      max-width: 22px;
       border-radius: 3px 3px 0 0;
-      background: linear-gradient(180deg, var(--gold), var(--red));
+      background: rgba(30, 107, 184, 0.55);
+      min-height: 2px;
     }
 
     .trend-label {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.55rem;
+      font-size: 0.58rem;
       color: var(--text-muted);
       white-space: nowrap;
     }
 
+    /* Value sits above the bar — must contrast on dark cards */
     .trend-val {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.52rem;
-      color: var(--text-faint);
+      font-size: 0.62rem;
+      font-weight: 500;
+      color: var(--cream);
+      line-height: 1.1;
+      min-height: 0.85rem;
+      text-align: center;
+      white-space: nowrap;
     }
 
     /* Stats: bustout list */
