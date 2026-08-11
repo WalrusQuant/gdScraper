@@ -1,0 +1,2681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grateful Dead — Setlist Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&display=optional" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --bg-warm: #0e0e0e;
+      --surface: #161616;
+      --card: #141414;
+      --card-hover: #1c1c1c;
+      --border: #2a2a2a;
+      --border-light: #3a3a3a;
+      --red: #e63328;
+      --red-dim: rgba(230, 51, 40, 0.15);
+      --gold: #f5a623;
+      --gold-dim: rgba(245, 166, 35, 0.12);
+      --purple: #9b59b6;
+      --purple-dim: rgba(155, 89, 182, 0.12);
+      --teal: #2ecc71;
+      --teal-dim: rgba(46, 204, 113, 0.12);
+      --blue: #3498db;
+      --blue-dim: rgba(52, 152, 219, 0.12);
+      --orange: #f58220;
+      --orange-dim: rgba(245, 130, 32, 0.12);
+      --yellow: #f5c518;
+      --green: #27ae60;
+      --cream: #f0ece4;
+      --text: #d4cfc6;
+      --text-secondary: #a09890;
+      --text-muted: #605850;
+      --text-faint: #3a3530;
+      --radius: 4px;
+      --radius-lg: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+      font-weight: 400;
+      position: relative;
+    }
+
+    /* ─── Paper Grain Overlay ────────────────────────────────── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      pointer-events: none;
+      opacity: 0.06;
+      mix-blend-mode: soft-light;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
+    }
+
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; color: inherit; }
+
+    /* ─── Header ─────────────────────────────────────────────── */
+    #site-header {
+      position: relative;
+      padding: 3.5rem 2rem 2.5rem;
+      text-align: center;
+      overflow: hidden;
+      border-bottom: none;
+    }
+
+    #site-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 15% 60%, rgba(230, 51, 40, 0.10) 0%, transparent 45%),
+        radial-gradient(ellipse at 85% 30%, rgba(52, 152, 219, 0.08) 0%, transparent 45%),
+        radial-gradient(ellipse at 50% 85%, rgba(245, 166, 35, 0.07) 0%, transparent 40%),
+        radial-gradient(ellipse at 35% 20%, rgba(46, 204, 113, 0.06) 0%, transparent 40%),
+        linear-gradient(180deg, #0a0a0a 0%, #0e0e0e 100%);
+      z-index: 0;
+    }
+
+    #site-header::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      opacity: 0.04;
+      mix-blend-mode: overlay;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .header-content { position: relative; z-index: 2; }
+
+    .header-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      opacity: 0;
+      animation: fade-in-down 0.8s ease 0.2s forwards;
+    }
+
+    #site-header h1 {
+      font-family: 'Righteous', cursive;
+      font-size: clamp(2.5rem, 7vw, 4.8rem);
+      font-weight: 400;
+      letter-spacing: 2px;
+      line-height: 1.0;
+      opacity: 0;
+      animation: fade-in-down 0.8s ease 0.3s forwards;
+      background: linear-gradient(180deg, var(--yellow) 0%, var(--orange) 40%, var(--red) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 30px rgba(245, 130, 32, 0.2));
+    }
+
+    .header-subtitle {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 300;
+      font-style: normal;
+      letter-spacing: 2px;
+      text-transform: lowercase;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+      opacity: 0;
+      animation: fade-in-down 0.8s ease 0.5s forwards;
+    }
+
+    /* ─── Header decorative line ─────────────────────────────── */
+    .header-rule {
+      width: 100px;
+      height: 2px;
+      margin: 1rem auto 0;
+      background: linear-gradient(90deg, transparent, var(--red), var(--orange), var(--teal), var(--blue), transparent);
+      opacity: 0.8;
+      border-radius: 1px;
+    }
+
+    #header-stats {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+      opacity: 0;
+      animation: fade-in-down 0.8s ease 0.7s forwards;
+    }
+
+    .stat-chip {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.3px;
+    }
+
+    .stat-chip strong {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    /* Psychedelic color strip */
+    .perf-edge {
+      position: relative;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--orange), var(--gold), var(--teal), var(--blue), var(--purple), var(--red));
+      background-size: 200% 100%;
+      animation: color-slide 8s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes color-slide {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    /* ─── Sticky Controls ────────────────────────────────────── */
+    #controls {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ─── Year Timeline ──────────────────────────────────────── */
+    #year-timeline {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 0;
+      padding: 0.6rem 1.5rem 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    #year-timeline::-webkit-scrollbar { display: none; }
+
+    .year-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 0.35rem 0.5rem 0.4rem;
+      min-width: 38px;
+      flex-shrink: 0;
+      border-radius: 4px 4px 0 0;
+      transition: background 0.2s, color 0.2s;
+      position: relative;
+    }
+
+    .year-btn:hover { background: rgba(245, 166, 35, 0.08); }
+
+    .year-btn.active {
+      background: var(--orange-dim);
+    }
+
+    .year-btn.active .year-label { color: var(--orange); }
+    .year-btn.active .year-bar-fill { background: var(--orange); }
+    .year-btn.active .year-count { color: var(--orange); }
+
+    .year-count {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--text-muted);
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .year-bar-track {
+      width: 3px;
+      height: 24px;
+      background: var(--border);
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .year-bar-fill {
+      width: 100%;
+      background: var(--red);
+      border-radius: 2px;
+      transition: background 0.2s, height 0.4s ease;
+    }
+
+    .year-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    /* ─── Search Bar ─────────────────────────────────────────── */
+    #search-bar {
+      display: flex;
+      gap: 0.6rem;
+      padding: 0.5rem 1.5rem 0.6rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    #search-input {
+      flex: 1;
+      min-width: 180px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.5rem 0.85rem;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 300;
+      transition: border-color 0.25s, box-shadow 0.25s;
+      outline: none;
+    }
+
+    #search-input::placeholder { color: var(--text-muted); font-weight: 300; }
+    #search-input:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px var(--orange-dim);
+    }
+
+    #active-filter {
+      display: none;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--orange-dim);
+      border: 1px solid rgba(243, 156, 18, 0.3);
+      border-radius: 20px;
+      padding: 0.25rem 0.65rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--orange);
+    }
+
+    #active-filter.visible { display: inline-flex; }
+    #active-filter button { color: var(--orange); font-size: 1rem; line-height: 1; padding: 0; }
+    #active-filter button:hover { color: var(--red); }
+
+    #clear-btn {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      padding: 0.35rem 0.7rem;
+      border-radius: var(--radius);
+      transition: all 0.2s;
+      letter-spacing: 0.3px;
+    }
+
+    #clear-btn:hover { color: var(--red); background: var(--red-dim); }
+
+    #results-count {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      margin-left: auto;
+    }
+
+    /* ─── Main Layout ────────────────────────────────────────── */
+    #main {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      #main { grid-template-columns: 1fr; }
+      #sidebar { order: -1; }
+    }
+
+    /* ─── Show Grid ──────────────────────────────────────────── */
+    #show-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 0.85rem;
+    }
+
+    /* ─── Show Card ──────────────────────────────────────────── */
+    .show-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+      cursor: pointer;
+      position: relative;
+      opacity: 0;
+      animation: card-reveal 0.45s ease forwards;
+    }
+
+    .show-card:hover {
+      border-color: rgba(245, 166, 35, 0.35);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .show-card.expanded {
+      border-color: var(--gold);
+      box-shadow: 0 0 30px rgba(245, 166, 35, 0.06), 0 8px 40px rgba(0, 0, 0, 0.5);
+      cursor: default;
+      grid-column: 1 / -1;
+      transform: none;
+    }
+
+    .card-header {
+      padding: 1.1rem 1.2rem 0.9rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      position: relative;
+    }
+
+    /* Watermark year behind card content */
+    .card-year-watermark {
+      position: absolute;
+      right: 12px;
+      top: -4px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 4.2rem;
+      font-weight: 500;
+      color: var(--text-faint);
+      opacity: 0.10;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .card-meta { flex: 1; min-width: 0; position: relative; z-index: 1; }
+
+    .card-venue {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--cream);
+      line-height: 1.25;
+    }
+
+    .card-location {
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: var(--text-secondary);
+      margin-top: 0.2rem;
+    }
+
+    .card-date {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .card-song-count {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 500;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.2rem 0.55rem;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+      white-space: nowrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── Expanded Card Body ─────────────────────────────────── */
+    .card-body {
+      display: none;
+      padding: 0 1.3rem 1.3rem;
+    }
+
+    .show-card.expanded .card-body { display: block; }
+
+    .card-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--red) 20%, var(--gold) 50%, var(--blue) 80%, transparent);
+      opacity: 0.25;
+      margin-bottom: 1.2rem;
+    }
+
+    .setlist-section { margin-bottom: 1.25rem; }
+    .setlist-section:last-of-type { margin-bottom: 0.75rem; }
+
+    .setlist-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .song-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .song-pill {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      font-style: normal;
+      background: rgba(22, 22, 22, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.2rem 0.55rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s;
+      line-height: 1.4;
+    }
+
+    .song-pill:hover {
+      background: var(--orange-dim);
+      border-color: rgba(243, 156, 18, 0.35);
+      color: var(--orange);
+    }
+
+    .card-notes {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--text-secondary);
+      background: var(--red-dim);
+      border-radius: var(--radius);
+      padding: 0.6rem 0.85rem;
+      border-left: 2px solid var(--red);
+    }
+
+    .card-notes-label {
+      font-style: normal;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.3rem;
+    }
+
+    .card-source {
+      margin-top: 0.8rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+    }
+
+    .card-source a {
+      color: var(--text-muted);
+      text-decoration: underline;
+      text-decoration-color: var(--border);
+      text-underline-offset: 2px;
+    }
+
+    .card-source a:hover { color: var(--orange); text-decoration-color: var(--orange); }
+
+    /* ─── Night Headers & Dividers ───────────────────────────── */
+    .night-header {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--orange);
+      margin: 0.25rem 0 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .night-header:not(:first-child) {
+      margin-top: 0.25rem;
+    }
+
+    .night-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-light) 30%, var(--border-light) 70%, transparent);
+      margin: 1.25rem 0;
+    }
+
+    .collapse-btn {
+      margin-top: 1rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0.4rem 0.7rem;
+      border-radius: var(--radius);
+      transition: all 0.2s;
+    }
+
+    .collapse-btn:hover { color: var(--orange); background: var(--orange-dim); }
+
+    /* ─── Load More ──────────────────────────────────────────── */
+    #load-more-wrap {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1.5rem 0 0.5rem;
+    }
+
+    #load-more-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.65rem 2.5rem;
+      color: var(--text-secondary);
+      transition: all 0.25s;
+    }
+
+    #load-more-btn:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+    #load-more-info {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+    }
+
+    /* ─── Empty State ────────────────────────────────────────── */
+    #empty-state {
+      display: none;
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 5rem 1rem;
+    }
+
+    #empty-state h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    #empty-state p { font-size: 0.82rem; color: var(--text-muted); }
+
+    /* ─── Sidebar ────────────────────────────────────────────── */
+    #sidebar { position: sticky; top: 110px; }
+
+    .sidebar-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 1rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s;
+    }
+
+    .panel-header:hover { background: var(--surface); }
+
+    .panel-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .panel-toggle {
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      transition: transform 0.25s;
+    }
+
+    .panel-toggle.open { transform: rotate(180deg); }
+
+    .panel-body {
+      padding: 0.5rem 0.65rem;
+      max-height: 500px;
+      overflow-y: auto;
+      border-top: 1px solid var(--border);
+    }
+
+    .panel-body::-webkit-scrollbar { width: 3px; }
+    .panel-body::-webkit-scrollbar-track { background: transparent; }
+    .panel-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+    .panel-body.collapsed { display: none; }
+
+    /* ─── Song Stats ─────────────────────────────────────────── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: 20px 1fr 50px 28px;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.35rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .stat-row:hover { background: var(--orange-dim); }
+    .stat-row:hover .stat-name { color: var(--orange); }
+
+    .stat-rank {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.58rem;
+      color: var(--text-faint);
+      text-align: right;
+    }
+
+    .stat-name {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-style: normal;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color 0.2s;
+    }
+
+    .stat-bar-wrap {
+      height: 3px;
+      background: var(--surface);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .stat-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--red), var(--gold));
+      border-radius: 2px;
+      transition: width 0.5s ease;
+    }
+
+    .stat-count {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    /* ─── Loading ────────────────────────────────────────────── */
+    #loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+      gap: 1.2rem;
+    }
+
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 2px solid var(--border);
+      border-top-color: var(--orange);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    .loading-text {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── Animations ─────────────────────────────────────────── */
+    @keyframes fade-in-down {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes card-reveal {
+      from { opacity: 0; transform: translateY(14px) scale(0.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateX(-16px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ─── Scrollbar ──────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* ─── View Tabs ──────────────────────────────────────────── */
+    #view-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      padding: 0 1.5rem;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .view-tab {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0.75rem 1.5rem;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .view-tab:hover { color: var(--text-secondary); }
+
+    .view-tab.active {
+      color: var(--orange);
+      border-bottom-color: var(--orange);
+    }
+
+    /* ─── Stats View ─────────────────────────────────────────── */
+    #shows-view { display: none; }
+    #shows-view.active { display: block; }
+
+    #stats-view {
+      display: none;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    #stats-view.active { display: block; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .stats-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      opacity: 0;
+      animation: card-reveal 0.45s ease forwards;
+    }
+
+    .stats-card-header {
+      padding: 0.85rem 1.1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .stats-card-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .stats-card-subtitle {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .stats-card-body {
+      padding: 0.75rem 1.1rem;
+      max-height: 420px;
+      overflow-y: auto;
+    }
+
+    .stats-card-body::-webkit-scrollbar { width: 3px; }
+    .stats-card-body::-webkit-scrollbar-track { background: transparent; }
+    .stats-card-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    /* Stats: horizontal bar rows */
+    .sbar-row {
+      display: grid;
+      grid-template-columns: 22px 1fr 60px 36px;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0;
+    }
+
+    .sbar-rank {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--text-faint);
+      text-align: right;
+    }
+
+    .sbar-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-style: normal;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sbar-label-sans {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-style: normal;
+      font-weight: 400;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sbar-track {
+      height: 4px;
+      background: var(--surface);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .sbar-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.5s ease;
+    }
+
+    .sbar-fill-red { background: linear-gradient(90deg, #a02020, var(--red)); }
+    .sbar-fill-gold { background: linear-gradient(90deg, #c07a10, var(--orange)); }
+    .sbar-fill-purple { background: linear-gradient(90deg, #6a3d8a, var(--purple)); }
+    .sbar-fill-teal { background: linear-gradient(90deg, #1a8a4a, var(--teal)); }
+
+    .sbar-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    /* Stats: year trend bar chart */
+    .trend-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      padding-top: 0.5rem;
+    }
+
+    .trend-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .trend-bar {
+      width: 100%;
+      max-width: 24px;
+      border-radius: 3px 3px 0 0;
+      background: linear-gradient(180deg, var(--gold), var(--red));
+    }
+
+    .trend-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .trend-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.52rem;
+      color: var(--text-faint);
+    }
+
+    /* Stats: bustout list */
+    .bustout-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .bustout-pill {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-style: normal;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* Stats: wide cards */
+    .stats-card.wide {
+      grid-column: 1 / -1;
+    }
+
+    /* ─── Mobile Tweaks ──────────────────────────────────────── */
+    @media (max-width: 600px) {
+      #site-header { padding: 3rem 1.25rem 2rem; }
+      #search-bar { padding: 0.5rem 1rem 0.5rem; }
+      #year-timeline { padding: 0.5rem 1rem 0; }
+      #main { padding: 1rem; }
+      #show-grid { grid-template-columns: 1fr; }
+      .year-btn { min-width: 32px; padding: 0.3rem 0.35rem 0.35rem; }
+      .card-year-watermark { font-size: 3.5rem; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .stats-card.wide { grid-column: auto; }
+      .trend-label { font-size: 0.42rem; }
+    }
+
+    /* ─── Song Detail Panel ──────────────────────────────────── */
+    #song-detail-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 420px;
+      max-width: 100vw;
+      background: var(--card);
+      border-left: 1px solid var(--border-light);
+      z-index: 9000;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: -8px 0 48px rgba(0, 0, 0, 0.5);
+    }
+
+    #song-detail-panel.open {
+      transform: translateX(0);
+    }
+
+    #song-detail-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 8999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    #song-detail-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .sdp-header {
+      padding: 1.4rem 1.2rem 1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .sdp-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      font-style: normal;
+      color: var(--cream);
+      line-height: 1.2;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sdp-close {
+      font-size: 1.4rem;
+      line-height: 1;
+      color: var(--text-muted);
+      padding: 0.1rem 0.35rem;
+      border-radius: var(--radius);
+      flex-shrink: 0;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .sdp-close:hover {
+      color: var(--red);
+      background: var(--red-dim);
+    }
+
+    .sdp-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.2rem;
+    }
+
+    .sdp-body::-webkit-scrollbar { width: 3px; }
+    .sdp-body::-webkit-scrollbar-track { background: transparent; }
+    .sdp-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sdp-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .sdp-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .sdp-section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.7rem;
+    }
+
+    .sdp-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+
+    .sdp-meta-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.55rem 0.7rem;
+    }
+
+    .sdp-meta-value {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--orange);
+      line-height: 1.2;
+    }
+
+    .sdp-meta-key {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .sdp-set-breakdown {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .sdp-set-chip {
+      flex: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.5rem 0.5rem;
+      text-align: center;
+    }
+
+    .sdp-set-chip-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.95rem;
+      color: var(--orange);
+    }
+
+    .sdp-set-chip-key {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
+    .sdp-mini-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 50px;
+    }
+
+    .sdp-mini-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .sdp-mini-bar {
+      width: 100%;
+      background: linear-gradient(180deg, var(--blue), rgba(52,152,219,0.4));
+      border-radius: 2px 2px 0 0;
+      min-height: 2px;
+    }
+
+    .sdp-mini-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.48rem;
+      color: var(--text-faint);
+      white-space: nowrap;
+    }
+
+    .sdp-transition-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .sdp-transition-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 0.3rem 0.5rem;
+      border-radius: var(--radius);
+      transition: background 0.2s;
+    }
+
+    .sdp-transition-row:hover {
+      background: var(--orange-dim);
+    }
+
+    .sdp-transition-song {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-style: normal;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: color 0.2s;
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .sdp-transition-song:hover {
+      color: var(--orange);
+      text-decoration: underline;
+    }
+
+    .sdp-transition-count {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .sdp-venue-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .sdp-venue-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 0.25rem 0;
+      border-bottom: 1px solid rgba(42, 42, 42, 0.8);
+    }
+
+    .sdp-venue-row:last-child {
+      border-bottom: none;
+    }
+
+    .sdp-venue-name {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .sdp-venue-count {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .sdp-filter-btn {
+      display: block;
+      width: 100%;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
+      background: var(--orange-dim);
+      border: 1px solid rgba(243, 156, 18, 0.3);
+      border-radius: var(--radius);
+      padding: 0.7rem 1rem;
+      color: var(--orange);
+      text-align: center;
+      transition: all 0.25s;
+      margin-top: 0.25rem;
+    }
+
+    .sdp-filter-btn:hover {
+      background: rgba(243, 156, 18, 0.25);
+      border-color: var(--orange);
+    }
+
+    /* ─── Song Rarity Indicator ──────────────────────────────── */
+    .song-pill--rare {
+      border-color: rgba(46, 204, 113, 0.35);
+      position: relative;
+    }
+
+    .song-pill--rare::before {
+      content: '◆';
+      font-size: 0.45rem;
+      color: var(--teal);
+      margin-right: 0.25rem;
+      font-style: normal;
+    }
+
+    /* ─── Random Show Button ─────────────────────────────────── */
+    #random-show-btn {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: var(--text-secondary);
+      background: transparent;
+      border: 1px solid rgba(243, 156, 18, 0.3);
+      border-radius: 20px;
+      padding: 0.3rem 0.85rem;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+
+    #random-show-btn:hover {
+      color: var(--orange);
+      border-color: var(--orange);
+      background: var(--orange-dim);
+    }
+
+    /* ─── Iconic Transitions ─────────────────────────────────── */
+    .transition-pair-row {
+      display: grid;
+      grid-template-columns: 20px 1fr 36px;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0;
+    }
+
+    .transition-pair-rank {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--text-faint);
+      text-align: right;
+    }
+
+    .transition-pair-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-style: normal;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .transition-pair-label .arrow {
+      font-style: normal;
+      color: var(--text-muted);
+      margin: 0 0.2rem;
+    }
+
+    .transition-pair-count {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    /* ─── Site footer (attribution) ─────────────────────────── */
+    #site-footer {
+      margin-top: 3rem;
+      padding: 2rem 1.5rem 2.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      line-height: 1.55;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #site-footer a {
+      color: var(--orange);
+      text-decoration: none;
+    }
+    #site-footer a:hover { text-decoration: underline; }
+    #site-footer .footer-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 0.65rem;
+    }
+    #site-footer p { margin: 0.35rem 0; }
+  </style>
+</head>
+<body>
+
+<header id="site-header">
+  <div class="header-content">
+    <div class="header-eyebrow">1972 &mdash; 1995 · setlist archive</div>
+    <h1>Grateful Dead</h1>
+    <div class="header-subtitle">every setlist, every show, every song</div>
+    <div class="header-rule"></div>
+    <div id="header-stats">
+      <span class="stat-chip">Loading&hellip;</span>
+    </div>
+    <div style="margin-top:1rem">
+      <button id="random-show-btn">&#9758; Take Me to a Show</button>
+    </div>
+  </div>
+</header>
+
+<div class="perf-edge"></div>
+
+<div id="controls">
+  <nav id="year-timeline" role="tablist" aria-label="Filter by year"></nav>
+  <div id="search-bar">
+    <input id="search-input" type="search" placeholder="Search songs, venues, cities&hellip;" autocomplete="off" spellcheck="false" />
+    <div id="active-filter">
+      <span id="active-filter-label"></span>
+      <button id="clear-song-btn" title="Clear song filter">&times;</button>
+    </div>
+    <button id="clear-btn">Clear All</button>
+    <span id="results-count"></span>
+  </div>
+</div>
+
+<div id="view-tabs">
+  <button class="view-tab active" data-view="shows">Shows</button>
+  <button class="view-tab" data-view="stats">Statistics</button>
+</div>
+
+<div id="shows-view" class="active">
+  <div id="main">
+    <div id="content-col">
+      <div id="loading"><div class="spinner"></div><span class="loading-text">Loading setlists&hellip;</span></div>
+      <div id="show-grid" style="display:none"></div>
+    </div>
+    <aside id="sidebar">
+      <div class="sidebar-panel">
+        <div class="panel-header" id="stats-toggle">
+          <span class="panel-title">Most Played</span>
+          <span class="panel-toggle open" id="stats-arrow">&#9650;</span>
+        </div>
+        <div class="panel-body" id="stats-body"></div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<div id="stats-view">
+  <div class="stats-grid" id="stats-grid"></div>
+</div>
+
+<div id="song-detail-backdrop"></div>
+<div id="song-detail-panel" role="dialog" aria-modal="true" aria-label="Song detail">
+  <div class="sdp-header">
+    <div class="sdp-title" id="sdp-title"></div>
+    <button class="sdp-close" id="sdp-close" title="Close">&times;</button>
+  </div>
+  <div class="sdp-body" id="sdp-body"></div>
+</div>
+
+<footer id="site-footer">
+  <div class="footer-title">Data attribution · 1972–1995</div>
+  <p>
+    Setlist data from
+    <a href="https://www.cs.cmu.edu/~mleone/gdead/setlists.html" target="_blank" rel="noopener">Mark Leone’s Grateful Dead archive</a>
+    at Carnegie Mellon University.
+  </p>
+  <p>
+    Original database by Jerry Stratton and others; 1995 data collected and formatted by Tim Buller.
+  </p>
+  <p>
+    Fan tribute for non-commercial use. Not affiliated with or endorsed by the Grateful Dead, their estate, or related entities.
+  </p>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── State ────────────────────────────────────────────────── */
+  let allShows = [];
+  let filteredShows = [];
+  let groupedRuns = [];
+  let renderedCount = 0;
+  const PAGE_SIZE = 50;
+
+  let searchQuery = '';
+  let yearFilter = '';
+  let songFilter = '';
+  let debounceTimer = null;
+  let expandedIndex = null;
+
+  let songPlayCounts = {};   // songKey → play count (per-show unique)
+  let topSongs = [];         // [displayName, count]
+  let showCountsByYear = {};
+  const songTransitions = {}; // songKey → { after: {key: n}, before: {key: n} }
+  const displayByKey = {};   // songKey → canonical display
+
+  /* Curated alias map: after normalize+strip → alias key */
+  const SONG_ALIASES = {
+    "playing in the band": "playin' in the band",
+    "playing reprise": "playin' reprise",
+  };
+  const CANONICAL_DISPLAY = {
+    "playin' in the band": "Playin' in the Band",
+    "playin' reprise": "Playin' Reprise",
+  };
+
+  /* ── DOM refs ─────────────────────────────────────────────── */
+  const searchInput   = document.getElementById('search-input');
+  const clearBtn      = document.getElementById('clear-btn');
+  const activeFilter  = document.getElementById('active-filter');
+  const activeLabel   = document.getElementById('active-filter-label');
+  const clearSongBtn  = document.getElementById('clear-song-btn');
+  const resultsCount  = document.getElementById('results-count');
+  const showGrid      = document.getElementById('show-grid');
+  const loadingEl     = document.getElementById('loading');
+  const headerStats   = document.getElementById('header-stats');
+  const statsBody     = document.getElementById('stats-body');
+  const statsToggle   = document.getElementById('stats-toggle');
+  const statsArrow    = document.getElementById('stats-arrow');
+  const yearTimeline  = document.getElementById('year-timeline');
+
+  /* ── Helpers ──────────────────────────────────────────────── */
+  function getAllSongs(show) {
+    const s = show.sets || {};
+    return [...(s.set1 || []), ...(s.set2 || []), ...(s.encore || [])];
+  }
+
+  function normalize(str) {
+    return (str || '').toLowerCase().replace(/['']/g, "'");
+  }
+
+  function stripTrailingArrow(raw) {
+    let s = (raw || '').trim();
+    while (/\s*->\s*$/.test(s)) s = s.replace(/\s*->\s*$/, '').trim();
+    return s;
+  }
+
+  function songKey(raw) {
+    const n = normalize(stripTrailingArrow(raw));
+    return SONG_ALIASES[n] || n;
+  }
+
+  function rememberDisplay(raw) {
+    const k = songKey(raw);
+    if (!k) return k;
+    if (CANONICAL_DISPLAY[k]) {
+      displayByKey[k] = CANONICAL_DISPLAY[k];
+    } else if (!displayByKey[k]) {
+      displayByKey[k] = stripTrailingArrow(raw);
+    }
+    return k;
+  }
+
+  function displayName(rawOrKey) {
+    const k = songKey(rawOrKey);
+    return displayByKey[k] || stripTrailingArrow(rawOrKey) || rawOrKey;
+  }
+
+  function isIsoDate(d) {
+    return /^\d{4}-\d{2}-\d{2}$/.test(d || '');
+  }
+
+  function showDateSortKey(show) {
+    const d = show.date || '';
+    return isIsoDate(d) ? [0, d] : [1, ''];
+  }
+
+  function sortShowsByDate(shows) {
+    return shows.slice().sort((a, b) => {
+      const [a1, a2] = showDateSortKey(a);
+      const [b1, b2] = showDateSortKey(b);
+      return a1 - b1 || (a2 < b2 ? -1 : a2 > b2 ? 1 : 0);
+    });
+  }
+
+  function recoverDateFromUrl(show) {
+    if (isIsoDate(show.date)) return;
+    if (!show.source_url) return;
+    const m = show.source_url.match(/(\d{1,2})-(\d{1,2})-(\d{2,4})\.txt$/);
+    if (!m) return;
+    let [, month, day, yr] = m;
+    if (yr.length === 2) yr = '19' + yr;
+    show.date = `${yr}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+  }
+
+  const EXCLUDED_SEGMENTS = new Set([
+    'drums', 'space', 'drums/space', 'drum solo', 'jam', 'tuning', 'and', 'ejs',
+  ]);
+
+  function isSong(name) {
+    if (!name) return false;
+    const s = name.trim();
+    const n = normalize(s);
+    if (!n || n.startsWith('[')) return false;
+    if (EXCLUDED_SEGMENTS.has(n)) return false;
+    // Filter data junk: starts with digit (e.g. "15 Songs", "1. Bird Song  1/24/93 ...")
+    if (/^\d/.test(s)) return false;
+    // Multiple consecutive spaces = tabular data
+    if (/  /.test(s)) return false;
+    // Statistical/notes junk
+    if (/ave:|songs? seen|songs$|alphabetical|take care|longest gap/i.test(s)) return false;
+    // Way too long for a song name
+    if (s.length > 55) return false;
+    return true;
+  }
+
+  function escHtml(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function escAttr(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+  }
+
+  function formatLocation(city, state) {
+    const parts = [city, state].map(p => (p || '').trim()).filter(Boolean);
+    return parts.length ? parts.join(', ') : 'Unknown';
+  }
+
+  /* ── Data Loading ─────────────────────────────────────────── */
+  async function loadData() {
+    const resp = await fetch('grateful_dead_setlists.json');
+    allShows = await resp.json();
+
+    // Client-side date safety net (corpus should already be backfilled)
+    allShows.forEach(recoverDateFromUrl);
+
+    // Compute song play counts + display map (keyed by songKey)
+    allShows.forEach(show => {
+      const songs = getAllSongs(show);
+      const seen = new Set();
+      songs.forEach(song => {
+        if (!isSong(song)) return;
+        const key = rememberDisplay(song);
+        if (!seen.has(key)) {
+          songPlayCounts[key] = (songPlayCounts[key] || 0) + 1;
+          seen.add(key);
+        }
+      });
+    });
+
+    topSongs = Object.entries(songPlayCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 50)
+      .map(([k, c]) => [displayByKey[k] || k, c]);
+
+    // Transitions keyed by songKey
+    allShows.forEach(show => {
+      const sets = show.sets || {};
+      ['set1', 'set2', 'encore'].forEach(setKey => {
+        const songs = (sets[setKey] || []).filter(isSong);
+        for (let i = 0; i < songs.length; i++) {
+          const k = rememberDisplay(songs[i]);
+          if (!songTransitions[k]) songTransitions[k] = { after: {}, before: {} };
+          if (i < songs.length - 1 && isSong(songs[i + 1])) {
+            const nk = rememberDisplay(songs[i + 1]);
+            songTransitions[k].after[nk] = (songTransitions[k].after[nk] || 0) + 1;
+          }
+          if (i > 0 && isSong(songs[i - 1])) {
+            const pk = rememberDisplay(songs[i - 1]);
+            songTransitions[k].before[pk] = (songTransitions[k].before[pk] || 0) + 1;
+          }
+        }
+      });
+    });
+
+    // Compute shows per year
+    const yearsSet = new Set();
+    allShows.forEach(s => {
+      yearsSet.add(s.year);
+      showCountsByYear[s.year] = (showCountsByYear[s.year] || 0) + 1;
+    });
+    const years = [...yearsSet].sort();
+
+    // Header stats
+    const uniqueVenues = new Set(allShows.map(s => normalize(s.venue))).size;
+    const allSongSet = new Set(Object.keys(songPlayCounts));
+
+    headerStats.innerHTML = [
+      `<span class="stat-chip"><strong>${allShows.length.toLocaleString()}</strong> shows</span>`,
+      `<span class="stat-chip"><strong>${years[0]}&ndash;${years[years.length - 1]}</strong></span>`,
+      `<span class="stat-chip"><strong>${allSongSet.size.toLocaleString()}</strong> songs</span>`,
+      `<span class="stat-chip"><strong>${uniqueVenues}</strong> venues</span>`,
+    ].join('');
+
+    // Build year timeline
+    buildYearTimeline(years);
+
+    // Build stats sidebar
+    renderSongStats();
+
+    // Read hash, apply filters
+    readHash();
+    applyFilters();
+
+    loadingEl.style.display = 'none';
+    showGrid.style.display = 'grid';
+  }
+
+  /* ── Year Timeline ────────────────────────────────────────── */
+  function buildYearTimeline(years) {
+    const maxCount = Math.max(...Object.values(showCountsByYear));
+    const frag = document.createDocumentFragment();
+
+    // "All" button
+    const allBtn = document.createElement('button');
+    allBtn.className = 'year-btn active';
+    allBtn.dataset.year = '';
+    allBtn.setAttribute('role', 'tab');
+    allBtn.innerHTML = `
+      <span class="year-count">&nbsp;</span>
+      <span class="year-bar-track"><span class="year-bar-fill" style="height:100%"></span></span>
+      <span class="year-label">ALL</span>
+    `;
+    allBtn.addEventListener('click', () => selectYear(''));
+    frag.appendChild(allBtn);
+
+    years.forEach((y, i) => {
+      const count = showCountsByYear[y] || 0;
+      const pct = Math.round((count / maxCount) * 100);
+      const btn = document.createElement('button');
+      btn.className = 'year-btn';
+      btn.dataset.year = String(y);
+      btn.setAttribute('role', 'tab');
+      btn.style.animationDelay = `${i * 0.03}s`;
+      btn.innerHTML = `
+        <span class="year-count">${count}</span>
+        <span class="year-bar-track"><span class="year-bar-fill" style="height:${pct}%"></span></span>
+        <span class="year-label">'${String(y).slice(-2)}</span>
+      `;
+      btn.addEventListener('click', () => selectYear(String(y)));
+      frag.appendChild(btn);
+    });
+
+    yearTimeline.appendChild(frag);
+  }
+
+  function selectYear(year) {
+    yearFilter = year;
+    // Update active class
+    yearTimeline.querySelectorAll('.year-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.year === year);
+    });
+    applyFilters();
+  }
+
+  /* ── Song Stats Sidebar ───────────────────────────────────── */
+  function renderSongStats() {
+    if (!topSongs.length) return;
+    const maxCount = topSongs[0][1];
+    const frag = document.createDocumentFragment();
+
+    topSongs.forEach(([song, count], i) => {
+      const row = document.createElement('div');
+      row.className = 'stat-row';
+      row.title = song;
+      row.innerHTML = `
+        <span class="stat-rank">${i + 1}</span>
+        <span class="stat-name">${escHtml(song)}</span>
+        <div class="stat-bar-wrap">
+          <div class="stat-bar" style="width:${Math.round((count / maxCount) * 100)}%"></div>
+        </div>
+        <span class="stat-count">${count}</span>
+      `;
+      row.addEventListener('click', () => openSongDetail(song));
+      frag.appendChild(row);
+    });
+
+    statsBody.appendChild(frag);
+  }
+
+  /* ── Hash Routing ─────────────────────────────────────────── */
+  function readHash() {
+    const hash = window.location.hash.slice(1);
+    if (!hash) return;
+    const params = new URLSearchParams(hash);
+    if (params.has('song')) songFilter = params.get('song');
+    if (params.has('year')) {
+      yearFilter = params.get('year');
+      yearTimeline.querySelectorAll('.year-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.year === yearFilter);
+      });
+    }
+    if (params.has('q')) {
+      searchQuery = params.get('q');
+      searchInput.value = searchQuery;
+    }
+    updateActiveFilterBadge();
+  }
+
+  function writeHash() {
+    const params = new URLSearchParams();
+    if (songFilter) params.set('song', songFilter);
+    if (yearFilter) params.set('year', yearFilter);
+    if (searchQuery) params.set('q', searchQuery);
+    const str = params.toString();
+    history.replaceState(null, '', str ? '#' + str : location.pathname);
+  }
+
+  /* ── Grouping: venue runs ────────────────────────────────── */
+  function runKey(show) {
+    return [normalize(show.venue), normalize(show.city), normalize(show.state), show.year].join('|');
+  }
+
+  function groupIntoRuns(shows) {
+    const map = new Map();
+    shows.forEach(show => {
+      const key = runKey(show);
+      if (!map.has(key)) {
+        map.set(key, {
+          venue: show.venue,
+          city: show.city,
+          state: show.state,
+          year: show.year,
+          shows: [],
+        });
+      }
+      map.get(key).shows.push(show);
+    });
+    // Defense in depth: chronological nights (empty/non-ISO last)
+    return [...map.values()].map(run => {
+      run.shows = sortShowsByDate(run.shows);
+      return run;
+    });
+  }
+
+  /* ── Filtering ────────────────────────────────────────────── */
+  function applyFilters() {
+    const qNorm = normalize(searchQuery).trim();
+    const yearNum = yearFilter ? parseInt(yearFilter) : null;
+    const filterKey = songFilter ? songKey(songFilter) : '';
+
+    filteredShows = allShows.filter(show => {
+      if (yearNum && show.year !== yearNum) return false;
+      if (filterKey) {
+        if (!getAllSongs(show).some(s => songKey(s) === filterKey)) return false;
+      }
+      if (qNorm) {
+        const venueMatch = normalize(show.venue).includes(qNorm);
+        const cityMatch = normalize(show.city).includes(qNorm);
+        const stateMatch = normalize(show.state).includes(qNorm);
+        const songMatch = getAllSongs(show).some(s => normalize(s).includes(qNorm));
+        if (!venueMatch && !cityMatch && !stateMatch && !songMatch) return false;
+      }
+      return true;
+    });
+
+    groupedRuns = groupIntoRuns(filteredShows);
+    renderedCount = 0;
+    expandedIndex = null;
+    showGrid.innerHTML = '';
+    renderNextPage();
+    updateResultsCount();
+    writeHash();
+  }
+
+  function updateResultsCount() {
+    const nights = filteredShows.length;
+    const runs = groupedRuns.length;
+    resultsCount.textContent = nights.toLocaleString() + ' shows \u00B7 ' + runs.toLocaleString() + ' runs';
+  }
+
+  /* ── Rendering ────────────────────────────────────────────── */
+  function renderNextPage() {
+    const start = renderedCount;
+    const end = Math.min(renderedCount + PAGE_SIZE, groupedRuns.length);
+
+    const old = document.getElementById('load-more-wrap');
+    if (old) old.remove();
+    const oldEmpty = document.getElementById('empty-state');
+    if (oldEmpty) oldEmpty.remove();
+
+    if (groupedRuns.length === 0) {
+      const empty = document.createElement('div');
+      empty.id = 'empty-state';
+      empty.style.display = 'block';
+      empty.innerHTML = '<h3>No shows found</h3><p>Try adjusting your search or filters.</p>';
+      showGrid.appendChild(empty);
+      return;
+    }
+
+    const frag = document.createDocumentFragment();
+    for (let i = start; i < end; i++) {
+      const card = buildRunCard(groupedRuns[i], i);
+      card.style.animationDelay = ((i - start) % 15) * 0.035 + 's';
+      frag.appendChild(card);
+    }
+    renderedCount = end;
+    showGrid.appendChild(frag);
+
+    if (renderedCount < groupedRuns.length) {
+      const wrap = document.createElement('div');
+      wrap.id = 'load-more-wrap';
+      wrap.innerHTML = `
+        <button id="load-more-btn">Load More</button>
+        <span id="load-more-info">${renderedCount} of ${groupedRuns.length.toLocaleString()} runs</span>
+      `;
+      wrap.querySelector('#load-more-btn').addEventListener('click', renderNextPage);
+      showGrid.appendChild(wrap);
+    }
+  }
+
+  function buildRunCard(run, idx) {
+    const card = document.createElement('div');
+    card.className = 'show-card';
+    card.dataset.idx = idx;
+
+    const totalSongs = run.shows.reduce((sum, s) => sum + getAllSongs(s).filter(isSong).length, 0);
+    const nightCount = run.shows.length;
+    const nightLabel = nightCount === 1
+      ? '1 show'
+      : nightCount + ' shows at this venue in ' + run.year;
+
+    card.innerHTML = `
+      <div class="card-header">
+        <span class="card-year-watermark">${run.year}</span>
+        <div class="card-meta">
+          <div class="card-venue">${escHtml(run.venue || 'Unknown Venue')}</div>
+          <div class="card-location">${escHtml(formatLocation(run.city, run.state))}</div>
+        </div>
+        <div class="card-song-count">${escHtml(nightLabel)} &middot; ${totalSongs} songs</div>
+      </div>
+      <div class="card-body">
+        <div class="card-divider"></div>
+        ${buildRunBody(run)}
+      </div>
+    `;
+
+    card.querySelector('.card-header').addEventListener('click', () => toggleCard(card, idx));
+
+    card.querySelectorAll('.song-pill').forEach(pill => {
+      pill.addEventListener('click', e => {
+        e.stopPropagation();
+        openSongDetail(pill.dataset.song);
+      });
+    });
+
+    const collapseBtn = card.querySelector('.collapse-btn');
+    if (collapseBtn) {
+      collapseBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        collapseCard(card, idx);
+      });
+    }
+
+    return card;
+  }
+
+  function buildRunBody(run) {
+    let html = '';
+
+    run.shows.forEach((show, ni) => {
+      const sets = show.sets || {};
+      const date = show.date || show.date_raw || '';
+      const dateStr = show.day_of_week ? show.day_of_week + (date ? ', ' + date : '') : date;
+
+      if (run.shows.length > 1 || dateStr) {
+        // Prefer date labels; "Show k" is an index after chronological sort, not a residency claim
+        const label = dateStr
+          ? escHtml(dateStr)
+          : ('Show ' + (ni + 1));
+        html += `<div class="night-header">${label}</div>`;
+      }
+
+      html += renderSet('Set I', sets.set1);
+      html += renderSet('Set II', sets.set2);
+      html += renderSet('Encore', sets.encore);
+
+      if (show.notes && show.notes.length > 0) {
+        html += `
+          <div class="card-notes">
+            <div class="card-notes-label">Notes</div>
+            ${show.notes.map(n => `<div>${escHtml(n)}</div>`).join('')}
+          </div>
+        `;
+      }
+
+      if (show.source_url) {
+        html += `<div class="card-source">Source: <a href="${escAttr(show.source_url)}" target="_blank" rel="noopener">${escHtml(show.source_url)}</a></div>`;
+      }
+
+      if (ni < run.shows.length - 1) {
+        html += '<div class="night-divider"></div>';
+      }
+    });
+
+    html += '<button class="collapse-btn">&#9650; Collapse</button>';
+    return html;
+  }
+
+  function renderSet(label, songs) {
+    if (!songs || songs.length === 0) return '';
+    const pills = songs.map(s => {
+      const key = songKey(s);
+      const isRare = isSong(s) && (songPlayCounts[key] || 0) < 10;
+      const rareClass = isRare ? ' song-pill--rare' : '';
+      const canon = displayName(s);
+      const titleAttr = canon && canon !== s ? ` title="${escAttr(canon)}"` : '';
+      return `<button class="song-pill${rareClass}" data-song="${escAttr(s)}"${titleAttr}>${escHtml(s)}</button>`;
+    }).join('');
+    return `
+      <div class="setlist-section">
+        <div class="setlist-label">${label}</div>
+        <div class="song-pills">${pills}</div>
+      </div>
+    `;
+  }
+
+  function toggleCard(card, idx) {
+    card.classList.contains('expanded') ? collapseCard(card, idx) : expandCard(card, idx);
+  }
+
+  function expandCard(card, idx) {
+    if (expandedIndex !== null && expandedIndex !== idx) {
+      const prev = showGrid.querySelector(`.show-card[data-idx="${expandedIndex}"]`);
+      if (prev) prev.classList.remove('expanded');
+    }
+    card.classList.add('expanded');
+    expandedIndex = idx;
+    setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+  }
+
+  function collapseCard(card, idx) {
+    card.classList.remove('expanded');
+    if (expandedIndex === idx) expandedIndex = null;
+  }
+
+  /* ── Song Filter ──────────────────────────────────────────── */
+  function setSongFilter(song) {
+    // Persist canonical display in state/hash (friendly deep links)
+    const k = songKey(song);
+    songFilter = displayByKey[k] || stripTrailingArrow(song) || song;
+    updateActiveFilterBadge();
+    applyFilters();
+  }
+
+  function updateActiveFilterBadge() {
+    if (songFilter) {
+      activeLabel.textContent = 'Song: ' + songFilter;
+      activeFilter.classList.add('visible');
+    } else {
+      activeFilter.classList.remove('visible');
+    }
+  }
+
+  /* ── Event Listeners ──────────────────────────────────────── */
+  searchInput.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      searchQuery = searchInput.value.trim();
+      applyFilters();
+    }, 300);
+  });
+
+  clearBtn.addEventListener('click', () => {
+    searchQuery = '';
+    yearFilter = '';
+    songFilter = '';
+    searchInput.value = '';
+    yearTimeline.querySelectorAll('.year-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.year === '');
+    });
+    updateActiveFilterBadge();
+    applyFilters();
+  });
+
+  clearSongBtn.addEventListener('click', () => {
+    songFilter = '';
+    updateActiveFilterBadge();
+    applyFilters();
+  });
+
+  statsToggle.addEventListener('click', () => {
+    const panel = document.getElementById('stats-body');
+    const isOpen = !panel.classList.contains('collapsed');
+    panel.classList.toggle('collapsed', isOpen);
+    statsArrow.classList.toggle('open', !isOpen);
+  });
+
+  window.addEventListener('hashchange', () => {
+    searchQuery = '';
+    yearFilter = '';
+    songFilter = '';
+    searchInput.value = '';
+    yearTimeline.querySelectorAll('.year-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.year === '');
+    });
+    readHash();
+    applyFilters();
+  });
+
+  /* ── View Tabs ─────────────────────────────────────────────── */
+  const showsView = document.getElementById('shows-view');
+  const statsView = document.getElementById('stats-view');
+  const viewTabs = document.querySelectorAll('.view-tab');
+  let statsBuilt = false;
+
+  viewTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const view = tab.dataset.view;
+      viewTabs.forEach(t => t.classList.toggle('active', t === tab));
+      showsView.classList.toggle('active', view === 'shows');
+      statsView.classList.toggle('active', view === 'stats');
+      document.getElementById('controls').style.display = view === 'shows' ? '' : 'none';
+      if (view === 'stats' && !statsBuilt && allShows.length) {
+        buildStatsView();
+        statsBuilt = true;
+      }
+    });
+  });
+
+  /* ── Statistics View ──────────────────────────────────────── */
+  function buildStatsView() {
+    const grid = document.getElementById('stats-grid');
+    grid.innerHTML = '';
+
+    const allSongs = [];
+    const openers = {};
+    const closers = {};
+    const encoreSongs = {};
+    const songsByYear = {};
+    const venueCount = {};
+    const cityCount = {};
+    const stateCount = {};
+    const songsPerShowByYear = {};
+
+    allShows.forEach(show => {
+      const sets = show.sets || {};
+      const set1 = sets.set1 || [];
+      const set2 = sets.set2 || [];
+      const enc = sets.encore || [];
+      const yr = show.year;
+
+      // Openers: first song of set 1 (display names via songKey)
+      if (set1.length && isSong(set1[0])) {
+        const d = displayName(set1[0]);
+        openers[d] = (openers[d] || 0) + 1;
+      }
+
+      // Closers: last real song of set 2 (or set 1 if no set 2)
+      const mainSet = set2.length ? set2 : set1;
+      for (let i = mainSet.length - 1; i >= 0; i--) {
+        if (isSong(mainSet[i])) {
+          const d = displayName(mainSet[i]);
+          closers[d] = (closers[d] || 0) + 1;
+          break;
+        }
+      }
+
+      // Encores
+      enc.forEach(s => {
+        if (isSong(s)) {
+          const d = displayName(s);
+          encoreSongs[d] = (encoreSongs[d] || 0) + 1;
+        }
+      });
+
+      // Songs per show by year
+      const showSongCount = getAllSongs(show).filter(isSong).length;
+      if (!songsPerShowByYear[yr]) songsPerShowByYear[yr] = { total: 0, count: 0 };
+      songsPerShowByYear[yr].total += showSongCount;
+      songsPerShowByYear[yr].count += 1;
+
+      // Unique songs per year
+      if (!songsByYear[yr]) songsByYear[yr] = new Set();
+      getAllSongs(show).forEach(s => { if (isSong(s)) songsByYear[yr].add(songKey(s)); });
+
+      // Venue / city / state counts
+      const vk = show.venue || 'Unknown';
+      venueCount[vk] = (venueCount[vk] || 0) + 1;
+      if (show.city) cityCount[show.city] = (cityCount[show.city] || 0) + 1;
+      if (show.state) stateCount[show.state] = (stateCount[show.state] || 0) + 1;
+    });
+
+    // Bustouts: songs played exactly once (display names)
+    const bustouts = Object.entries(songPlayCounts)
+      .filter(([, c]) => c === 1)
+      .map(([k]) => displayByKey[k] || k)
+      .sort();
+
+    const years = Object.keys(songsByYear).sort();
+    let delay = 0;
+
+    // ── Card 1: Shows per Year (wide trend chart) ──
+    delay = addTrendCard(grid, 'Shows Per Year', years.map(y => ({
+      label: "'" + String(y).slice(-2),
+      value: songsPerShowByYear[y] ? songsPerShowByYear[y].count : 0,
+    })), delay, 'wide');
+
+    // ── Card 2: Avg Songs per Show by Year (wide trend chart) ──
+    delay = addTrendCard(grid, 'Avg Songs Per Show', years.map(y => ({
+      label: "'" + String(y).slice(-2),
+      value: songsPerShowByYear[y] ? Math.round(songsPerShowByYear[y].total / songsPerShowByYear[y].count) : 0,
+    })), delay, 'wide');
+
+    // ── Card 3: Unique Songs per Year (wide) ──
+    delay = addTrendCard(grid, 'Unique Songs Per Year', years.map(y => ({
+      label: "'" + String(y).slice(-2),
+      value: songsByYear[y] ? songsByYear[y].size : 0,
+    })), delay, 'wide');
+
+    // ── Card 4: Top 30 Most Played (display names via songKey) ──
+    const mostPlayedDisplay = Object.entries(songPlayCounts)
+      .map(([k, c]) => [displayByKey[k] || k, c])
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 30);
+    delay = addBarCard(grid, 'Most Played Songs', 'Top 30', mostPlayedDisplay, 'sbar-fill-red', delay);
+
+    // ── Card 5: Most Common Openers ──
+    delay = addBarCard(grid, 'Most Common Openers', 'First song, Set I', sortObj(openers, 20), 'sbar-fill-gold', delay);
+
+    // ── Card 6: Most Common Closers ──
+    delay = addBarCard(grid, 'Most Common Closers', 'Last song, Set II', sortObj(closers, 20), 'sbar-fill-purple', delay);
+
+    // ── Card 7: Most Common Encores ──
+    delay = addBarCard(grid, 'Encore Favorites', 'Top encore songs', sortObj(encoreSongs, 20), 'sbar-fill-teal', delay);
+
+    // ── Card 8: Top Venues ──
+    delay = addBarCard(grid, 'Top Venues', 'Most visited', sortObj(venueCount, 20), 'sbar-fill-gold', delay, true);
+
+    // ── Card 9: Top Cities ──
+    delay = addBarCard(grid, 'Top Cities', 'Most shows', sortObj(cityCount, 20), 'sbar-fill-purple', delay, true);
+
+    // ── Card 10: Top States ──
+    delay = addBarCard(grid, 'Top States', 'Most shows', sortObj(stateCount, 20), 'sbar-fill-teal', delay, true);
+
+    // ── Card 11: Bustouts ──
+    const bustCard = document.createElement('div');
+    bustCard.className = 'stats-card';
+    bustCard.style.animationDelay = delay * 0.06 + 's';
+    bustCard.innerHTML = `
+      <div class="stats-card-header">
+        <span class="stats-card-title">Bustouts</span>
+        <span class="stats-card-subtitle">${bustouts.length} songs played only once</span>
+      </div>
+      <div class="stats-card-body">
+        <div class="bustout-grid">
+          ${bustouts.slice(0, 100).map(s => `<span class="bustout-pill">${escHtml(s)}</span>`).join('')}
+          ${bustouts.length > 100 ? `<span class="bustout-pill" style="color:var(--text-muted)">+ ${bustouts.length - 100} more</span>` : ''}
+        </div>
+      </div>
+    `;
+    grid.appendChild(bustCard);
+    delay++;
+
+    // ── Iconic Transitions card (keyed by songKey, labeled with display) ──
+    const allPairs = {};
+    allShows.forEach(show => {
+      const sets = show.sets || {};
+      ['set1', 'set2', 'encore'].forEach(setKey => {
+        const songs = (sets[setKey] || []).filter(isSong);
+        for (let i = 0; i < songs.length - 1; i++) {
+          if (isSong(songs[i + 1])) {
+            const a = songKey(songs[i]);
+            const b = songKey(songs[i + 1]);
+            const pair = a + '|' + b;
+            allPairs[pair] = (allPairs[pair] || 0) + 1;
+          }
+        }
+      });
+    });
+
+    const topPairs = Object.entries(allPairs).sort((a, b) => b[1] - a[1]).slice(0, 20);
+    if (topPairs.length) {
+      const transCard = document.createElement('div');
+      transCard.className = 'stats-card';
+      transCard.style.animationDelay = delay * 0.06 + 's';
+      const pairRows = topPairs.map(([pair, count], i) => {
+        const [ka, kb] = pair.split('|');
+        const songA = displayByKey[ka] || ka;
+        const songB = displayByKey[kb] || kb;
+        return `
+          <div class="transition-pair-row">
+            <span class="transition-pair-rank">${i + 1}</span>
+            <span class="transition-pair-label">
+              ${escHtml(songA)}<span class="arrow">→</span>${escHtml(songB)}
+            </span>
+            <span class="transition-pair-count">${count}</span>
+          </div>
+        `;
+      }).join('');
+
+      transCard.innerHTML = `
+        <div class="stats-card-header">
+          <span class="stats-card-title">Iconic Transitions</span>
+          <span class="stats-card-subtitle">Top 20 most common song-to-song pairs</span>
+        </div>
+        <div class="stats-card-body">${pairRows}</div>
+      `;
+      grid.appendChild(transCard);
+    }
+  }
+
+  function sortObj(obj, limit) {
+    return Object.entries(obj).sort((a, b) => b[1] - a[1]).slice(0, limit);
+  }
+
+  function addBarCard(grid, title, subtitle, data, fillClass, delay, sansLabel) {
+    if (!data.length) return delay;
+    const maxVal = data[0][1];
+    const card = document.createElement('div');
+    card.className = 'stats-card';
+    card.style.animationDelay = delay * 0.06 + 's';
+
+    const rows = data.map(([name, count], i) => `
+      <div class="sbar-row">
+        <span class="sbar-rank">${i + 1}</span>
+        <span class="${sansLabel ? 'sbar-label-sans' : 'sbar-label'}" title="${escAttr(name)}">${escHtml(name)}</span>
+        <div class="sbar-track"><div class="sbar-fill ${fillClass}" style="width:${Math.round((count / maxVal) * 100)}%"></div></div>
+        <span class="sbar-val">${count}</span>
+      </div>
+    `).join('');
+
+    card.innerHTML = `
+      <div class="stats-card-header">
+        <span class="stats-card-title">${title}</span>
+        <span class="stats-card-subtitle">${subtitle}</span>
+      </div>
+      <div class="stats-card-body">${rows}</div>
+    `;
+    grid.appendChild(card);
+    return delay + 1;
+  }
+
+  function addTrendCard(grid, title, data, delay, extraClass) {
+    const maxVal = Math.max(...data.map(d => d.value));
+    const maxBarH = 110;
+    const card = document.createElement('div');
+    card.className = 'stats-card' + (extraClass ? ' ' + extraClass : '');
+    card.style.animationDelay = delay * 0.06 + 's';
+
+    const cols = data.map(d => {
+      const h = maxVal ? Math.max(3, Math.round((d.value / maxVal) * maxBarH)) : 3;
+      return `
+        <div class="trend-col">
+          <span class="trend-val">${d.value}</span>
+          <div class="trend-bar" style="height:${h}px"></div>
+          <span class="trend-label">${d.label}</span>
+        </div>
+      `;
+    }).join('');
+
+    card.innerHTML = `
+      <div class="stats-card-header">
+        <span class="stats-card-title">${title}</span>
+      </div>
+      <div class="stats-card-body" style="max-height:none">
+        <div class="trend-chart">${cols}</div>
+      </div>
+    `;
+    grid.appendChild(card);
+    return delay + 1;
+  }
+
+  /* ── Song Detail Panel ────────────────────────────────────── */
+  const sdpPanel    = document.getElementById('song-detail-panel');
+  const sdpBackdrop = document.getElementById('song-detail-backdrop');
+  const sdpTitle    = document.getElementById('sdp-title');
+  const sdpBody     = document.getElementById('sdp-body');
+  const sdpClose    = document.getElementById('sdp-close');
+  let sdpLastFocus = null;
+  let sdpKeyHandler = null;
+
+  function getSdpFocusable() {
+    return [...sdpPanel.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    )].filter(el => !el.disabled && el.offsetParent !== null);
+  }
+
+  function openSongDetail(song) {
+    if (!song) return;
+    // Allow opening via raw pill text or display name
+    if (!isSong(song) && !songPlayCounts[songKey(song)]) return;
+
+    const display = displayName(song);
+    sdpLastFocus = document.activeElement;
+    sdpTitle.textContent = display;
+    sdpBody.innerHTML = buildSongDetailHTML(song);
+
+    // Attach transition nav clicks inside the panel
+    sdpBody.querySelectorAll('[data-sdp-song]').forEach(el => {
+      el.addEventListener('click', () => openSongDetail(el.dataset.sdpSong));
+    });
+
+    sdpPanel.classList.add('open');
+    sdpBackdrop.classList.add('open');
+
+    // Focus trap
+    if (sdpKeyHandler) document.removeEventListener('keydown', sdpKeyHandler);
+    sdpKeyHandler = e => {
+      if (!sdpPanel.classList.contains('open')) return;
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeSongDetail();
+        return;
+      }
+      if (e.key !== 'Tab') return;
+      const nodes = getSdpFocusable();
+      if (!nodes.length) return;
+      const first = nodes[0];
+      const last = nodes[nodes.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first || !sdpPanel.contains(document.activeElement)) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener('keydown', sdpKeyHandler);
+    requestAnimationFrame(() => {
+      const nodes = getSdpFocusable();
+      (nodes[0] || sdpClose).focus();
+    });
+  }
+
+  function closeSongDetail() {
+    sdpPanel.classList.remove('open');
+    sdpBackdrop.classList.remove('open');
+    if (sdpKeyHandler) {
+      document.removeEventListener('keydown', sdpKeyHandler);
+      sdpKeyHandler = null;
+    }
+    if (sdpLastFocus && typeof sdpLastFocus.focus === 'function') {
+      sdpLastFocus.focus();
+    }
+    sdpLastFocus = null;
+  }
+
+  function buildSongDetailHTML(song) {
+    const key = songKey(song);
+
+    // Gather per-show data for this song (match via songKey)
+    const matchingShows = allShows.filter(show =>
+      getAllSongs(show).some(s => songKey(s) === key)
+    );
+
+    const totalPlays = songPlayCounts[key] || matchingShows.length;
+
+    // First / last dates
+    const datedShows = matchingShows.filter(s => isIsoDate(s.date)).sort((a, b) => a.date.localeCompare(b.date));
+    const firstDate = datedShows.length ? datedShows[0].date : '—';
+    const lastDate  = datedShows.length ? datedShows[datedShows.length - 1].date : '—';
+
+    // Frequency by year
+    const byYear = {};
+    matchingShows.forEach(show => {
+      const yr = show.year;
+      if (yr) byYear[yr] = (byYear[yr] || 0) + 1;
+    });
+    const yearKeys = Object.keys(byYear).sort();
+    const maxYearCount = Math.max(...Object.values(byYear), 1);
+
+    // Set position breakdown
+    const setPos = { set1: 0, set2: 0, encore: 0 };
+    matchingShows.forEach(show => {
+      const sets = show.sets || {};
+      ['set1', 'set2', 'encore'].forEach(sk => {
+        if ((sets[sk] || []).some(s => songKey(s) === key)) setPos[sk]++;
+      });
+    });
+
+    // Top venues
+    const venueCounts = {};
+    matchingShows.forEach(show => {
+      const v = show.venue || 'Unknown';
+      venueCounts[v] = (venueCounts[v] || 0) + 1;
+    });
+    const topVenues = Object.entries(venueCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+
+    // Transitions (keys are songKeys — display via displayByKey)
+    const trans = songTransitions[key] || { after: {}, before: {} };
+    const topAfter  = Object.entries(trans.after).sort((a, b) => b[1] - a[1]).slice(0, 10);
+    const topBefore = Object.entries(trans.before).sort((a, b) => b[1] - a[1]).slice(0, 10);
+
+    // Build chart columns
+    const chartCols = yearKeys.map(yr => {
+      const h = Math.max(2, Math.round((byYear[yr] / maxYearCount) * 46));
+      return `
+        <div class="sdp-mini-col">
+          <div class="sdp-mini-bar" style="height:${h}px"></div>
+          <span class="sdp-mini-label">'${String(yr).slice(-2)}</span>
+        </div>
+      `;
+    }).join('');
+
+    const venueRows = topVenues.map(([v, c]) => `
+      <div class="sdp-venue-row">
+        <span class="sdp-venue-name" title="${escAttr(v)}">${escHtml(v)}</span>
+        <span class="sdp-venue-count">${c}×</span>
+      </div>
+    `).join('');
+
+    const transRow = (k, c) => {
+      const label = displayByKey[k] || k;
+      return `
+      <div class="sdp-transition-row">
+        <span class="sdp-transition-song" data-sdp-song="${escAttr(label)}" title="${escAttr(label)}">${escHtml(label)}</span>
+        <span class="sdp-transition-count">${c}×</span>
+      </div>
+    `;
+    };
+
+    const afterRows  = topAfter.map(([k, c]) => transRow(k, c)).join('') || '<span style="font-size:0.75rem;color:var(--text-muted)">None recorded</span>';
+    const beforeRows = topBefore.map(([k, c]) => transRow(k, c)).join('') || '<span style="font-size:0.75rem;color:var(--text-muted)">None recorded</span>';
+
+    return `
+      <div class="sdp-section">
+        <div class="sdp-section-label">Overview</div>
+        <div class="sdp-meta-grid">
+          <div class="sdp-meta-item">
+            <div class="sdp-meta-value">${totalPlays}</div>
+            <div class="sdp-meta-key">Times played</div>
+          </div>
+          <div class="sdp-meta-item">
+            <div class="sdp-meta-value">${matchingShows.length}</div>
+            <div class="sdp-meta-key">Shows</div>
+          </div>
+          <div class="sdp-meta-item">
+            <div class="sdp-meta-value" style="font-size:0.72rem">${firstDate}</div>
+            <div class="sdp-meta-key">First played</div>
+          </div>
+          <div class="sdp-meta-item">
+            <div class="sdp-meta-value" style="font-size:0.72rem">${lastDate}</div>
+            <div class="sdp-meta-key">Last played</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sdp-section">
+        <div class="sdp-section-label">Set Position</div>
+        <div class="sdp-set-breakdown">
+          <div class="sdp-set-chip">
+            <div class="sdp-set-chip-val">${setPos.set1}</div>
+            <div class="sdp-set-chip-key">Set I</div>
+          </div>
+          <div class="sdp-set-chip">
+            <div class="sdp-set-chip-val">${setPos.set2}</div>
+            <div class="sdp-set-chip-key">Set II</div>
+          </div>
+          <div class="sdp-set-chip">
+            <div class="sdp-set-chip-val">${setPos.encore}</div>
+            <div class="sdp-set-chip-key">Encore</div>
+          </div>
+        </div>
+      </div>
+
+      ${yearKeys.length ? `
+      <div class="sdp-section">
+        <div class="sdp-section-label">Frequency by Year</div>
+        <div class="sdp-mini-chart">${chartCols}</div>
+      </div>` : ''}
+
+      ${topVenues.length ? `
+      <div class="sdp-section">
+        <div class="sdp-section-label">Top Venues</div>
+        <div class="sdp-venue-list">${venueRows}</div>
+      </div>` : ''}
+
+      <div class="sdp-section">
+        <div class="sdp-section-label">Followed By</div>
+        <div class="sdp-transition-list">${afterRows}</div>
+      </div>
+
+      <div class="sdp-section">
+        <div class="sdp-section-label">Preceded By</div>
+        <div class="sdp-transition-list">${beforeRows}</div>
+      </div>
+
+      <div class="sdp-section">
+        <button class="sdp-filter-btn" id="sdp-show-all-btn">Show all ${matchingShows.length} shows with this song</button>
+      </div>
+    `;
+  }
+
+  sdpClose.addEventListener('click', closeSongDetail);
+  sdpBackdrop.addEventListener('click', closeSongDetail);
+
+  // "Show all shows" button — delegated since it's injected
+  sdpBody.addEventListener('click', e => {
+    if (e.target && e.target.id === 'sdp-show-all-btn') {
+      const song = sdpTitle.textContent;
+      closeSongDetail();
+      // Switch to shows view if needed
+      const showsTab = document.querySelector('.view-tab[data-view="shows"]');
+      if (showsTab && !showsTab.classList.contains('active')) showsTab.click();
+      setSongFilter(song);
+    }
+  });
+
+  /* ── Random Show Button ───────────────────────────────────── */
+  document.getElementById('random-show-btn').addEventListener('click', () => {
+    if (!allShows.length) return;
+
+    // Clear all filters
+    searchQuery = '';
+    yearFilter = '';
+    songFilter = '';
+    searchInput.value = '';
+    yearTimeline.querySelectorAll('.year-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.year === '');
+    });
+    updateActiveFilterBadge();
+
+    // Switch to shows view
+    const showsTab = document.querySelector('.view-tab[data-view="shows"]');
+    if (showsTab && !showsTab.classList.contains('active')) showsTab.click();
+
+    // Apply filters (rebuilds the grid) — then find the card
+    applyFilters();
+
+    // Pick a random show from allShows and find its run
+    const targetShow = allShows[Math.floor(Math.random() * allShows.length)];
+    const targetKey  = runKey(targetShow);
+
+    // Find the run index in groupedRuns
+    const runIdx = groupedRuns.findIndex(run => runKey(run.shows[0]) === targetKey);
+    if (runIdx === -1) return;
+
+    // If it's not yet rendered, keep loading until it is
+    function revealCard() {
+      let card = showGrid.querySelector(`.show-card[data-idx="${runIdx}"]`);
+      if (!card) {
+        // Need to load more pages
+        const loadMoreBtn = document.getElementById('load-more-btn');
+        if (loadMoreBtn) {
+          loadMoreBtn.click();
+          setTimeout(revealCard, 80);
+        }
+        return;
+      }
+      expandCard(card, runIdx);
+      setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'center' }), 80);
+    }
+
+    setTimeout(revealCard, 60);
+  });
+
+  /* ── Boot ──────────────────────────────────────────────────── */
+  loadData().catch(err => {
+    loadingEl.innerHTML = `<p style="color:var(--red)">Failed to load: ${escHtml(err.message)}</p>`;
+  });
+
+})();
+</script>
+</body>
+</html>

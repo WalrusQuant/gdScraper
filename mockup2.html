@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GD Mockup 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&family=DM+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #e63328;
+      --orange: #f58220;
+      --yellow: #f5c518;
+      --green: #2ecc71;
+      --blue: #3498db;
+      --purple: #9b59b6;
+    }
+
+    body {
+      background: #0a0a0a;
+      color: #d4cfc6;
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ═══════════════════════════════════════════════
+       HEADER — Steal Your Face hero
+       ═══════════════════════════════════════════════ */
+    .hero {
+      text-align: center;
+      padding: 3rem 2rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Steal Your Face — pure CSS */
+    .stealie {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 1.5rem;
+      position: relative;
+      animation: stealie-pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes stealie-pulse {
+      0%, 100% { filter: drop-shadow(0 0 8px rgba(230,51,40,0.3)) drop-shadow(0 0 8px rgba(52,152,219,0.3)); }
+      50% { filter: drop-shadow(0 0 20px rgba(230,51,40,0.5)) drop-shadow(0 0 20px rgba(52,152,219,0.5)); }
+    }
+
+    .stealie svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Psychedelic gradient title */
+    .hero h1 {
+      font-family: 'Righteous', cursive;
+      font-size: clamp(3rem, 9vw, 6rem);
+      line-height: 1;
+      background: linear-gradient(180deg, #f5c518 0%, #f58220 40%, #e63328 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 30px rgba(245, 130, 32, 0.2));
+      margin-bottom: 0.5rem;
+      letter-spacing: 2px;
+    }
+
+    .hero .tagline {
+      font-size: 0.85rem;
+      color: #666;
+      font-weight: 300;
+      letter-spacing: 2px;
+    }
+
+    /* Dancing bears marching across */
+    .bear-strip {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      font-size: 1.3rem;
+      animation: bear-march 20s linear infinite;
+      user-select: none;
+    }
+
+    @keyframes bear-march {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50px); }
+    }
+
+    .bear { display: inline-block; }
+    .bear:nth-child(5n+1) { color: var(--orange); }
+    .bear:nth-child(5n+2) { color: var(--green); }
+    .bear:nth-child(5n+3) { color: var(--blue); }
+    .bear:nth-child(5n+4) { color: var(--red); }
+    .bear:nth-child(5n+5) { color: var(--yellow); }
+
+    /* Stats chips */
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1rem 0;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat .num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--yellow);
+    }
+
+    .hero-stat .label {
+      font-size: 0.65rem;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .random-btn {
+      margin-top: 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #0a0a0a;
+      background: linear-gradient(135deg, var(--yellow), var(--orange));
+      border: none;
+      padding: 0.6rem 1.5rem;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .random-btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px rgba(245, 197, 24, 0.25);
+    }
+
+    /* Rainbow divider */
+    .rainbow {
+      height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--orange), var(--yellow), var(--green), var(--blue), var(--purple), var(--red));
+      background-size: 200% 100%;
+      animation: rainbow-shift 6s linear infinite;
+    }
+
+    @keyframes rainbow-shift {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    /* ═══════════════════════════════════════════════
+       CONTROLS
+       ═══════════════════════════════════════════════ */
+    .controls-bar {
+      background: #0e0e0e;
+      border-bottom: 1px solid #1e1e1e;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .yr-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+      padding: 0.5rem 1rem 0;
+    }
+
+    .yr-btn {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      color: #444;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.4rem 0.55rem;
+      transition: color 0.15s;
+      border-bottom: 2px solid transparent;
+    }
+
+    .yr-btn:hover { color: #999; }
+    .yr-btn.active { color: var(--yellow); border-bottom-color: var(--yellow); }
+
+    .search-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.5rem 2rem 0.6rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .search-row input {
+      flex: 1;
+      background: #161616;
+      border: 1px solid #2a2a2a;
+      color: #d4cfc6;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      padding: 0.45rem 0.75rem;
+      outline: none;
+      border-radius: 2px;
+    }
+
+    .search-row input::placeholder { color: #3a3a3a; }
+    .search-row input:focus { border-color: var(--orange); }
+
+    /* ═══════════════════════════════════════════════
+       TABS
+       ═══════════════════════════════════════════════ */
+    .tab-row {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      background: #0a0a0a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .tab-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #555;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.75rem 1.5rem;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s;
+    }
+
+    .tab-btn:hover { color: #aaa; }
+    .tab-btn.active { color: #d4cfc6; border-bottom-color: var(--red); }
+
+    /* ═══════════════════════════════════════════════
+       SHOW GRID — colorful cards on black
+       ═══════════════════════════════════════════════ */
+    .show-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1rem;
+    }
+
+    .show-card {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      padding: 1rem 1.2rem;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    /* Rotating color accent — top border */
+    .show-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .show-card:nth-child(6n+1)::before { background: var(--red); }
+    .show-card:nth-child(6n+2)::before { background: var(--orange); }
+    .show-card:nth-child(6n+3)::before { background: var(--yellow); }
+    .show-card:nth-child(6n+4)::before { background: var(--green); }
+    .show-card:nth-child(6n+5)::before { background: var(--blue); }
+    .show-card:nth-child(6n+6)::before { background: var(--purple); }
+
+    .show-card:hover {
+      border-color: #333;
+    }
+
+    .show-card.expanded {
+      grid-column: 1 / -1;
+      border-color: #333;
+    }
+
+    .show-card .venue {
+      font-family: 'Righteous', cursive;
+      font-size: 1.05rem;
+      color: #eee;
+      line-height: 1.2;
+    }
+
+    .show-card .location {
+      font-size: 0.78rem;
+      color: #666;
+      margin-top: 0.2rem;
+    }
+
+    .show-card .card-meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: #444;
+      margin-top: 0.5rem;
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    /* ── Expanded setlist ─────────────────────────── */
+    .setlist-area {
+      display: none;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .show-card.expanded .setlist-area { display: block; }
+
+    .set-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .set-label:first-child { margin-top: 0; }
+
+    .songs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .song-tag {
+      font-size: 0.78rem;
+      color: #aaa;
+      background: #161616;
+      border: 1px solid #252525;
+      padding: 0.2rem 0.5rem;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: color 0.12s, border-color 0.12s;
+    }
+
+    .song-tag:hover {
+      color: var(--yellow);
+      border-color: var(--yellow);
+    }
+
+    .song-tag.rare {
+      border-color: var(--green);
+    }
+
+    .song-tag.rare::before {
+      content: '◆ ';
+      font-size: 0.4rem;
+      color: var(--green);
+      vertical-align: middle;
+    }
+
+    /* collapse */
+    .collapse-link {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: #444;
+      margin-top: 1rem;
+      display: inline-block;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    .collapse-link:hover { color: var(--yellow); }
+
+    /* ═══════════════════════════════════════════════
+       STATS VIEW
+       ═══════════════════════════════════════════════ */
+    .stats-area {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: none;
+    }
+
+    .stats-area.visible { display: block; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    .stat-card:nth-child(6n+1)::before { background: var(--red); }
+    .stat-card:nth-child(6n+2)::before { background: var(--orange); }
+    .stat-card:nth-child(6n+3)::before { background: var(--green); }
+    .stat-card:nth-child(6n+4)::before { background: var(--blue); }
+    .stat-card:nth-child(6n+5)::before { background: var(--purple); }
+    .stat-card:nth-child(6n+6)::before { background: var(--yellow); }
+
+    .stat-card-header {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .stat-card-title {
+      font-family: 'Righteous', cursive;
+      font-size: 1rem;
+      color: #ddd;
+    }
+
+    .stat-card-sub {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.55rem;
+      color: #444;
+    }
+
+    .stat-card-body {
+      padding: 0.6rem 1rem;
+      max-height: 380px;
+      overflow-y: auto;
+    }
+
+    .stat-card-body::-webkit-scrollbar { width: 3px; }
+    .stat-card-body::-webkit-scrollbar-thumb { background: #2a2a2a; }
+
+    .s-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.3rem 0;
+      border-bottom: 1px solid #141414;
+    }
+
+    .s-rank {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.55rem;
+      color: #333;
+      width: 1.2rem;
+      text-align: right;
+    }
+
+    .s-name {
+      flex: 1;
+      font-size: 0.8rem;
+      color: #999;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .s-bar {
+      width: 60px;
+      height: 3px;
+      background: #1a1a1a;
+      flex-shrink: 0;
+    }
+
+    .s-bar-fill {
+      height: 100%;
+      border-radius: 0;
+    }
+
+    .stat-card:nth-child(1) .s-bar-fill { background: var(--red); }
+    .stat-card:nth-child(2) .s-bar-fill { background: var(--orange); }
+    .stat-card:nth-child(3) .s-bar-fill { background: var(--green); }
+    .stat-card:nth-child(4) .s-bar-fill { background: var(--blue); }
+
+    .s-count {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.55rem;
+      color: #444;
+      width: 2rem;
+      text-align: right;
+    }
+
+    /* wide stat card */
+    .stat-card.wide { grid-column: 1 / -1; }
+
+    /* transition arrow */
+    .arrow { color: var(--red); margin: 0 0.15rem; }
+
+    /* ═══════════════════════════════════════════════
+       RESPONSIVE
+       ═══════════════════════════════════════════════ */
+    @media (max-width: 700px) {
+      .show-grid { grid-template-columns: 1fr; padding: 1rem; }
+      .hero h1 { font-size: 3rem; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .stat-card.wide { grid-column: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══════════════════════════════════ -->
+<div class="hero">
+
+  <!-- Steal Your Face SVG -->
+  <div class="stealie">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="95" fill="none" stroke="#ddd" stroke-width="6"/>
+      <circle cx="100" cy="100" r="92" fill="none" stroke="#333" stroke-width="1"/>
+      <!-- Red half -->
+      <path d="M100,8 A92,92 0 0,1 100,192 Z" fill="#e63328"/>
+      <!-- Blue half -->
+      <path d="M100,8 A92,92 0 0,0 100,192 Z" fill="#3498db"/>
+      <!-- Lightning bolt -->
+      <polygon points="88,35 112,35 95,90 120,88 80,170 100,105 75,107" fill="white"/>
+      <!-- Skull outline ring -->
+      <circle cx="100" cy="100" r="95" fill="none" stroke="white" stroke-width="5"/>
+    </svg>
+  </div>
+
+  <h1>GRATEFUL DEAD</h1>
+  <div class="tagline">Every show. Every song. Every night.</div>
+
+  <!-- Dancing bears -->
+  <div class="bear-strip">
+    <span class="bear">🐻</span>
+    <span class="bear">🐻</span>
+    <span class="bear">🐻</span>
+    <span class="bear">🐻</span>
+    <span class="bear">🐻</span>
+    <span class="bear">🐻</span>
+    <span class="bear">🐻</span>
+    <span class="bear">🐻</span>
+    <span class="bear">🐻</span>
+    <span class="bear">🐻</span>
+    <span class="bear">🐻</span>
+    <span class="bear">🐻</span>
+    <span class="bear">🐻</span>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">1,605</div><div class="label">Shows</div></div>
+    <div class="hero-stat"><div class="num">985</div><div class="label">Songs</div></div>
+    <div class="hero-stat"><div class="num">442</div><div class="label">Venues</div></div>
+    <div class="hero-stat"><div class="num">24</div><div class="label">Years</div></div>
+  </div>
+
+  <button class="random-btn">⚡ Take Me to a Show</button>
+</div>
+
+<div class="rainbow"></div>
+
+<!-- ═══ CONTROLS ═══════════════════════════════ -->
+<div class="controls-bar">
+  <div class="yr-row">
+    <button class="yr-btn active">ALL</button>
+    <button class="yr-btn">'72</button><button class="yr-btn">'73</button><button class="yr-btn">'74</button>
+    <button class="yr-btn">'75</button><button class="yr-btn">'76</button><button class="yr-btn">'77</button>
+    <button class="yr-btn">'78</button><button class="yr-btn">'79</button><button class="yr-btn">'80</button>
+    <button class="yr-btn">'81</button><button class="yr-btn">'82</button><button class="yr-btn">'83</button>
+    <button class="yr-btn">'84</button><button class="yr-btn">'85</button><button class="yr-btn">'86</button>
+    <button class="yr-btn">'87</button><button class="yr-btn">'88</button><button class="yr-btn">'89</button>
+    <button class="yr-btn">'90</button><button class="yr-btn">'91</button><button class="yr-btn">'92</button>
+    <button class="yr-btn">'93</button><button class="yr-btn">'94</button><button class="yr-btn">'95</button>
+  </div>
+  <div class="search-row">
+    <input type="search" placeholder="Search songs, venues, cities..." />
+  </div>
+</div>
+
+<div class="tab-row">
+  <button class="tab-btn active" data-view="shows">Shows</button>
+  <button class="tab-btn" data-view="stats">Statistics</button>
+</div>
+
+<!-- ═══ SHOW GRID ══════════════════════════════ -->
+<div class="show-grid" id="shows-view">
+
+  <div class="show-card">
+    <div class="venue">Winterland Arena</div>
+    <div class="location">San Francisco, CA</div>
+    <div class="card-meta"><span>1972-01-02</span><span>17 songs</span></div>
+    <div class="setlist-area">
+      <div class="set-label">SET I</div>
+      <div class="songs">
+        <button class="song-tag">Truckin'</button>
+        <button class="song-tag">Sugaree</button>
+        <button class="song-tag">Mr. Charlie</button>
+        <button class="song-tag">Beat it on Down the Line</button>
+        <button class="song-tag">Loser</button>
+        <button class="song-tag">Jack Straw</button>
+        <button class="song-tag rare">Chinatown Shuffle</button>
+        <button class="song-tag">Tennessee Jed</button>
+        <button class="song-tag">Playing in the Band</button>
+        <button class="song-tag">Casey Jones</button>
+      </div>
+      <div class="set-label">SET II</div>
+      <div class="songs">
+        <button class="song-tag">Good Lovin'</button>
+        <button class="song-tag">China Cat Sunflower</button>
+        <button class="song-tag">I Know You Rider</button>
+        <button class="song-tag">Ramble On Rose</button>
+        <button class="song-tag">Sugar Magnolia</button>
+        <button class="song-tag">Not Fade Away</button>
+        <button class="song-tag">One More Saturday Night</button>
+      </div>
+      <button class="collapse-link">▲ collapse</button>
+    </div>
+  </div>
+
+  <div class="show-card">
+    <div class="venue">Academy of Music</div>
+    <div class="location">New York, NY</div>
+    <div class="card-meta"><span>1972-03-21</span><span>3 nights · 52 songs</span></div>
+    <div class="setlist-area"></div>
+  </div>
+
+  <div class="show-card">
+    <div class="venue">Capitol Theater</div>
+    <div class="location">Passaic, NJ</div>
+    <div class="card-meta"><span>1972-05-26</span><span>22 songs</span></div>
+    <div class="setlist-area"></div>
+  </div>
+
+  <div class="show-card">
+    <div class="venue">Hollywood Palladium</div>
+    <div class="location">Los Angeles, CA</div>
+    <div class="card-meta"><span>1972-08-22</span><span>19 songs</span></div>
+    <div class="setlist-area"></div>
+  </div>
+
+  <div class="show-card">
+    <div class="venue">Old Renaissance Faire Grounds</div>
+    <div class="location">Veneta, OR</div>
+    <div class="card-meta"><span>1972-08-27</span><span>21 songs</span></div>
+    <div class="setlist-area"></div>
+  </div>
+
+  <div class="show-card">
+    <div class="venue">Boston Music Hall</div>
+    <div class="location">Boston, MA</div>
+    <div class="card-meta"><span>1972-11-15</span><span>18 songs</span></div>
+    <div class="setlist-area"></div>
+  </div>
+
+  <div class="show-card">
+    <div class="venue">The Spectrum</div>
+    <div class="location">Philadelphia, PA</div>
+    <div class="card-meta"><span>1973-03-24</span><span>2 nights · 38 songs</span></div>
+    <div class="setlist-area"></div>
+  </div>
+
+  <div class="show-card">
+    <div class="venue">Nassau Coliseum</div>
+    <div class="location">Uniondale, NY</div>
+    <div class="card-meta"><span>1973-09-07</span><span>20 songs</span></div>
+    <div class="setlist-area"></div>
+  </div>
+
+  <div class="show-card">
+    <div class="venue">Cow Palace</div>
+    <div class="location">Daly City, CA</div>
+    <div class="card-meta"><span>1974-03-23</span><span>24 songs</span></div>
+    <div class="setlist-area"></div>
+  </div>
+
+</div>
+
+<!-- ═══ STATS VIEW ═════════════════════════════ -->
+<div class="stats-area" id="stats-view">
+  <div class="stats-grid">
+
+    <div class="stat-card">
+      <div class="stat-card-header">
+        <div class="stat-card-title">Most Played</div>
+        <div class="stat-card-sub">Top 30 songs across all shows</div>
+      </div>
+      <div class="stat-card-body">
+        <div class="s-row"><span class="s-rank">1</span><span class="s-name">Sugar Magnolia</span><div class="s-bar"><div class="s-bar-fill" style="width:100%"></div></div><span class="s-count">485</span></div>
+        <div class="s-row"><span class="s-rank">2</span><span class="s-name">Jack Straw</span><div class="s-bar"><div class="s-bar-fill" style="width:89%"></div></div><span class="s-count">434</span></div>
+        <div class="s-row"><span class="s-rank">3</span><span class="s-name">Not Fade Away</span><div class="s-bar"><div class="s-bar-fill" style="width:88%"></div></div><span class="s-count">427</span></div>
+        <div class="s-row"><span class="s-rank">4</span><span class="s-name">Promised Land</span><div class="s-bar"><div class="s-bar-fill" style="width:84%"></div></div><span class="s-count">407</span></div>
+        <div class="s-row"><span class="s-rank">5</span><span class="s-name">I Know You Rider</span><div class="s-bar"><div class="s-bar-fill" style="width:83%"></div></div><span class="s-count">405</span></div>
+        <div class="s-row"><span class="s-rank">6</span><span class="s-name">Me and My Uncle</span><div class="s-bar"><div class="s-bar-fill" style="width:83%"></div></div><span class="s-count">404</span></div>
+        <div class="s-row"><span class="s-rank">7</span><span class="s-name">Truckin'</span><div class="s-bar"><div class="s-bar-fill" style="width:81%"></div></div><span class="s-count">395</span></div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-card-header">
+        <div class="stat-card-title">Common Openers</div>
+        <div class="stat-card-sub">First song, Set I</div>
+      </div>
+      <div class="stat-card-body">
+        <div class="s-row"><span class="s-rank">1</span><span class="s-name">Jack Straw</span><div class="s-bar"><div class="s-bar-fill" style="width:100%"></div></div><span class="s-count">67</span></div>
+        <div class="s-row"><span class="s-rank">2</span><span class="s-name">Alabama Getaway</span><div class="s-bar"><div class="s-bar-fill" style="width:72%"></div></div><span class="s-count">48</span></div>
+        <div class="s-row"><span class="s-rank">3</span><span class="s-name">Bertha</span><div class="s-bar"><div class="s-bar-fill" style="width:60%"></div></div><span class="s-count">40</span></div>
+        <div class="s-row"><span class="s-rank">4</span><span class="s-name">Feel Like a Stranger</span><div class="s-bar"><div class="s-bar-fill" style="width:55%"></div></div><span class="s-count">37</span></div>
+        <div class="s-row"><span class="s-rank">5</span><span class="s-name">Promised Land</span><div class="s-bar"><div class="s-bar-fill" style="width:50%"></div></div><span class="s-count">33</span></div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-card-header">
+        <div class="stat-card-title">Top Venues</div>
+        <div class="stat-card-sub">Most visited</div>
+      </div>
+      <div class="stat-card-body">
+        <div class="s-row"><span class="s-rank">1</span><span class="s-name">Oakland Coliseum</span><div class="s-bar"><div class="s-bar-fill" style="width:100%"></div></div><span class="s-count">55</span></div>
+        <div class="s-row"><span class="s-rank">2</span><span class="s-name">Madison Square Garden</span><div class="s-bar"><div class="s-bar-fill" style="width:95%"></div></div><span class="s-count">52</span></div>
+        <div class="s-row"><span class="s-rank">3</span><span class="s-name">The Spectrum</span><div class="s-bar"><div class="s-bar-fill" style="width:82%"></div></div><span class="s-count">45</span></div>
+        <div class="s-row"><span class="s-rank">4</span><span class="s-name">Nassau Coliseum</span><div class="s-bar"><div class="s-bar-fill" style="width:67%"></div></div><span class="s-count">37</span></div>
+        <div class="s-row"><span class="s-rank">5</span><span class="s-name">Winterland Arena</span><div class="s-bar"><div class="s-bar-fill" style="width:62%"></div></div><span class="s-count">34</span></div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-card-header">
+        <div class="stat-card-title">Iconic Transitions</div>
+        <div class="stat-card-sub">Most common song-to-song pairs</div>
+      </div>
+      <div class="stat-card-body">
+        <div class="s-row"><span class="s-rank">1</span><span class="s-name">China Cat Sunflower <span class="arrow">→</span> I Know You Rider</span><span class="s-count">371</span></div>
+        <div class="s-row"><span class="s-rank">2</span><span class="s-name">Scarlet Begonias <span class="arrow">→</span> Fire on the Mountain</span><span class="s-count">211</span></div>
+        <div class="s-row"><span class="s-rank">3</span><span class="s-name">Lost Sailor <span class="arrow">→</span> Saint of Circumstance</span><span class="s-count">141</span></div>
+        <div class="s-row"><span class="s-rank">4</span><span class="s-name">Throwin' Stones <span class="arrow">→</span> Not Fade Away</span><span class="s-count">139</span></div>
+        <div class="s-row"><span class="s-rank">5</span><span class="s-name">The Other One <span class="arrow">→</span> Wharf Rat</span><span class="s-count">132</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Card expand/collapse
+  document.querySelectorAll('.show-card').forEach(card => {
+    card.addEventListener('click', e => {
+      if (e.target.closest('.song-tag') || e.target.closest('.collapse-link')) return;
+      const was = card.classList.contains('expanded');
+      document.querySelectorAll('.show-card.expanded').forEach(c => c.classList.remove('expanded'));
+      if (!was) card.classList.add('expanded');
+    });
+  });
+
+  document.querySelectorAll('.collapse-link').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.closest('.show-card').classList.remove('expanded');
+    });
+  });
+
+  // Year buttons
+  document.querySelectorAll('.yr-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.yr-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const v = tab.dataset.view;
+      document.getElementById('shows-view').style.display = v === 'shows' ? 'grid' : 'none';
+      document.getElementById('stats-view').classList.toggle('visible', v === 'stats');
+    });
+  });
+</script>
+
+</body>
+</html>

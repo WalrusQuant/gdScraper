@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GD Mockup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=DM+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #080808;
+      color: #d8d0c4;
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ── Header: poster, not corporate ─────────────── */
+    header {
+      padding: 3rem 3rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header .top-line {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      color: #555;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: clamp(4rem, 10vw, 7.5rem);
+      line-height: 0.88;
+      color: #f0ece4;
+      letter-spacing: -2px;
+      margin-bottom: 0.25rem;
+    }
+
+    header h1 span {
+      color: #e63328;
+    }
+
+    header .sub {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: #706860;
+      margin-top: 0.5rem;
+    }
+
+    header .sub strong {
+      color: #f5a623;
+      font-weight: 500;
+    }
+
+    /* thin color line — only decoration */
+    .color-line {
+      height: 2px;
+      background: linear-gradient(90deg, #e63328, #f5a623, #2ecc71, #3498db, #9b59b6);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── Controls ──────────────────────────────────── */
+    .controls {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.25rem 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      border-bottom: 1px solid #1e1e1e;
+    }
+
+    .controls input {
+      flex: 1;
+      background: #111;
+      border: 1px solid #2a2a2a;
+      padding: 0.5rem 0.75rem;
+      color: #d8d0c4;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      outline: none;
+      border-radius: 0;
+    }
+
+    .controls input:focus {
+      border-color: #f5a623;
+    }
+
+    .controls input::placeholder {
+      color: #4a4a4a;
+    }
+
+    .yr-strip {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.75rem 3rem;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .yr-strip button {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: #555;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.4rem 0.6rem;
+      transition: color 0.15s;
+    }
+
+    .yr-strip button:hover { color: #aaa; }
+
+    .yr-strip button.active {
+      color: #f5a623;
+      border-bottom: 2px solid #f5a623;
+    }
+
+    /* ── Tabs ──────────────────────────────────────── */
+    .tabs {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem 3rem 0;
+      display: flex;
+      gap: 2rem;
+    }
+
+    .tabs button {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #555;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding-bottom: 0.5rem;
+    }
+
+    .tabs button.active {
+      color: #d8d0c4;
+      border-bottom: 2px solid #e63328;
+    }
+
+    /* ── Random show ──────────────────────────────── */
+    .random-btn {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      color: #706860;
+      background: none;
+      border: 1px solid #333;
+      padding: 0.35rem 0.75rem;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+    }
+
+    .random-btn:hover {
+      color: #f5a623;
+      border-color: #f5a623;
+    }
+
+    /* ── Show list ─────────────────────────────────── */
+    .show-list {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 3rem 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .show-item {
+      border-left: 3px solid #2a2a2a;
+      padding: 1.25rem 0 1.25rem 1.5rem;
+      border-bottom: 1px solid #141414;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+
+    .show-item:hover {
+      border-left-color: #f5a623;
+    }
+
+    .show-item:nth-child(5n+1) { border-left-color: #e63328; }
+    .show-item:nth-child(5n+1):hover { border-left-color: #e63328; }
+    .show-item:nth-child(5n+2) { border-left-color: #f5a623; }
+    .show-item:nth-child(5n+3) { border-left-color: #2ecc71; }
+    .show-item:nth-child(5n+3):hover { border-left-color: #2ecc71; }
+    .show-item:nth-child(5n+4) { border-left-color: #3498db; }
+    .show-item:nth-child(5n+4):hover { border-left-color: #3498db; }
+    .show-item:nth-child(5n+5) { border-left-color: #9b59b6; }
+    .show-item:nth-child(5n+5):hover { border-left-color: #9b59b6; }
+
+    .show-item .venue {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: #e8e4dc;
+      line-height: 1.2;
+    }
+
+    .show-item .meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      color: #555;
+      margin-top: 0.3rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .show-item .meta .date { color: #706860; }
+
+    /* ── Expanded show ─────────────────────────────── */
+    .show-item.expanded {
+      padding-bottom: 2rem;
+    }
+
+    .setlist {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .set-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .set-label:first-child { margin-top: 0; }
+
+    .songs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .song {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: #b0a898;
+      background: #141414;
+      border: 1px solid #222;
+      padding: 0.2rem 0.5rem;
+      cursor: pointer;
+      border-radius: 0;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .song:hover {
+      color: #f5a623;
+      border-color: #f5a623;
+    }
+
+    .song.rare {
+      border-color: #2ecc71;
+    }
+
+    .song.rare::before {
+      content: '◆ ';
+      font-size: 0.4rem;
+      color: #2ecc71;
+      vertical-align: middle;
+    }
+
+    /* ── Stats section mockup ──────────────────────── */
+    .stats-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 3rem 4rem;
+    }
+
+    .stats-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 1.4rem;
+      color: #e8e4dc;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-block {
+      margin-bottom: 2.5rem;
+    }
+
+    .stat-block h3 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 0.75rem;
+    }
+
+    .stat-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid #141414;
+    }
+
+    .stat-row .rank {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: #333;
+      width: 1.5rem;
+      text-align: right;
+    }
+
+    .stat-row .name {
+      flex: 1;
+      font-size: 0.82rem;
+      color: #a09890;
+    }
+
+    .stat-row .bar-track {
+      width: 80px;
+      height: 3px;
+      background: #1a1a1a;
+    }
+
+    .stat-row .bar-fill {
+      height: 100%;
+    }
+
+    .stat-row .count {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: #555;
+      width: 2rem;
+      text-align: right;
+    }
+
+    /* color cycle for stat bars */
+    .stat-block:nth-child(1) .bar-fill { background: #e63328; }
+    .stat-block:nth-child(2) .bar-fill { background: #f5a623; }
+    .stat-block:nth-child(3) .bar-fill { background: #2ecc71; }
+    .stat-block:nth-child(4) .bar-fill { background: #3498db; }
+
+    /* ── Transitions mockup ────────────────────────── */
+    .transition-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid #141414;
+    }
+
+    .transition-row .pair {
+      flex: 1;
+      font-size: 0.82rem;
+      color: #a09890;
+    }
+
+    .transition-row .arrow {
+      color: #e63328;
+      margin: 0 0.2rem;
+    }
+
+    @media (max-width: 700px) {
+      header, .controls, .yr-strip, .tabs, .show-list, .stats-section {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="top-line">San Francisco &mdash; 1965&ndash;1995</div>
+  <h1>Grateful<br><span>Dead</span></h1>
+  <div class="sub"><strong>1,605</strong> shows &middot; <strong>985</strong> songs &middot; <strong>442</strong> venues &nbsp;&nbsp; <button class="random-btn">&#9758; random show</button></div>
+</header>
+
+<div class="color-line"></div>
+
+<div class="yr-strip">
+  <button class="active">ALL</button>
+  <button>'72</button><button>'73</button><button>'74</button><button>'75</button>
+  <button>'76</button><button>'77</button><button>'78</button><button>'79</button>
+  <button>'80</button><button>'81</button><button>'82</button><button>'83</button>
+  <button>'84</button><button>'85</button><button>'86</button><button>'87</button>
+  <button>'88</button><button>'89</button><button>'90</button><button>'91</button>
+  <button>'92</button><button>'93</button><button>'94</button><button>'95</button>
+</div>
+
+<div class="controls">
+  <input type="search" placeholder="Search songs, venues, cities..." />
+</div>
+
+<div class="tabs">
+  <button class="active">Shows</button>
+  <button>Statistics</button>
+</div>
+
+<!-- ── Show list ──────────────────────────────── -->
+<div class="show-list">
+
+  <div class="show-item">
+    <div class="venue">Winterland Arena</div>
+    <div class="meta">
+      <span class="date">1972-01-02</span>
+      <span>San Francisco, CA</span>
+      <span>17 songs</span>
+    </div>
+  </div>
+
+  <div class="show-item">
+    <div class="venue">Academy of Music</div>
+    <div class="meta">
+      <span class="date">1972-03-21</span>
+      <span>New York, NY</span>
+      <span>3 nights &middot; 52 songs</span>
+    </div>
+  </div>
+
+  <!-- Expanded show example -->
+  <div class="show-item expanded">
+    <div class="venue">Capitol Theater</div>
+    <div class="meta">
+      <span class="date">1972-05-26</span>
+      <span>Passaic, NJ</span>
+      <span>22 songs</span>
+    </div>
+    <div class="setlist">
+      <div class="set-label">SET I</div>
+      <div class="songs">
+        <button class="song">Bertha</button>
+        <button class="song">Me and My Uncle</button>
+        <button class="song">Mr. Charlie</button>
+        <button class="song">Sugaree</button>
+        <button class="song rare">Your Love At Home</button>
+        <button class="song">Black Throated Wind</button>
+        <button class="song">China Cat Sunflower</button>
+        <button class="song">I Know You Rider</button>
+        <button class="song">Loser</button>
+        <button class="song">Playing in the Band</button>
+      </div>
+      <div class="set-label">SET II</div>
+      <div class="songs">
+        <button class="song">Truckin'</button>
+        <button class="song">The Other One</button>
+        <button class="song">Wharf Rat</button>
+        <button class="song">Sugar Magnolia</button>
+        <button class="song">Not Fade Away</button>
+        <button class="song">Goin' Down the Road Feeling Bad</button>
+        <button class="song">Not Fade Away</button>
+      </div>
+      <div class="set-label">ENCORE</div>
+      <div class="songs">
+        <button class="song">One More Saturday Night</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="show-item">
+    <div class="venue">Hollywood Palladium</div>
+    <div class="meta">
+      <span class="date">1972-08-22</span>
+      <span>Los Angeles, CA</span>
+      <span>19 songs</span>
+    </div>
+  </div>
+
+  <div class="show-item">
+    <div class="venue">Veneta, Oregon</div>
+    <div class="meta">
+      <span class="date">1972-08-27</span>
+      <span>Old Renaissance Faire Grounds</span>
+      <span>21 songs</span>
+    </div>
+  </div>
+
+  <div class="show-item">
+    <div class="venue">Boston Music Hall</div>
+    <div class="meta">
+      <span class="date">1972-11-15</span>
+      <span>Boston, MA</span>
+      <span>18 songs</span>
+    </div>
+  </div>
+
+  <div class="show-item">
+    <div class="venue">The Spectrum</div>
+    <div class="meta">
+      <span class="date">1973-03-24</span>
+      <span>Philadelphia, PA</span>
+      <span>2 nights &middot; 38 songs</span>
+    </div>
+  </div>
+
+  <div class="show-item">
+    <div class="venue">Nassau Coliseum</div>
+    <div class="meta">
+      <span class="date">1973-09-07</span>
+      <span>Uniondale, NY</span>
+      <span>20 songs</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── Stats mockup ───────────────────────────── -->
+<div class="stats-section" style="display:none" id="stats-mock">
+
+  <h2>Statistics</h2>
+
+  <div class="stat-block">
+    <h3>Most Played Songs</h3>
+    <div class="stat-row"><span class="rank">1</span><span class="name">Sugar Magnolia</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="count">485</span></div>
+    <div class="stat-row"><span class="rank">2</span><span class="name">Jack Straw</span><div class="bar-track"><div class="bar-fill" style="width:89%"></div></div><span class="count">434</span></div>
+    <div class="stat-row"><span class="rank">3</span><span class="name">Not Fade Away</span><div class="bar-track"><div class="bar-fill" style="width:88%"></div></div><span class="count">427</span></div>
+    <div class="stat-row"><span class="rank">4</span><span class="name">Promised Land</span><div class="bar-track"><div class="bar-fill" style="width:84%"></div></div><span class="count">407</span></div>
+    <div class="stat-row"><span class="rank">5</span><span class="name">I Know You Rider</span><div class="bar-track"><div class="bar-fill" style="width:83%"></div></div><span class="count">405</span></div>
+  </div>
+
+  <div class="stat-block">
+    <h3>Iconic Transitions</h3>
+    <div class="transition-row"><span class="rank">1</span><span class="pair">China Cat Sunflower <span class="arrow">→</span> I Know You Rider</span><span class="count">371</span></div>
+    <div class="transition-row"><span class="rank">2</span><span class="pair">Scarlet Begonias <span class="arrow">→</span> Fire on the Mountain</span><span class="count">211</span></div>
+    <div class="transition-row"><span class="rank">3</span><span class="pair">Lost Sailor <span class="arrow">→</span> Saint of Circumstance</span><span class="count">141</span></div>
+    <div class="transition-row"><span class="rank">4</span><span class="pair">Throwin' Stones <span class="arrow">→</span> Not Fade Away</span><span class="count">139</span></div>
+    <div class="transition-row"><span class="rank">5</span><span class="pair">The Other One <span class="arrow">→</span> Wharf Rat</span><span class="count">132</span></div>
+  </div>
+
+</div>
+
+<script>
+  // Minimal interactivity for the mockup
+  document.querySelectorAll('.show-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const wasExpanded = item.classList.contains('expanded');
+      document.querySelectorAll('.show-item.expanded').forEach(i => {
+        if (i !== item) i.classList.remove('expanded');
+      });
+      item.classList.toggle('expanded', !wasExpanded);
+    });
+  });
+
+  document.querySelectorAll('.tabs button').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tabs button').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const showsList = document.querySelector('.show-list');
+      const statsMock = document.getElementById('stats-mock');
+      if (tab.textContent === 'Statistics') {
+        showsList.style.display = 'none';
+        statsMock.style.display = 'block';
+      } else {
+        showsList.style.display = 'flex';
+        statsMock.style.display = 'none';
+      }
+    });
+  });
+
+  document.querySelectorAll('.yr-strip button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.yr-strip button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
