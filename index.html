@@ -1592,6 +1592,12 @@
   const statsArrow    = document.getElementById('stats-arrow');
   const yearTimeline  = document.getElementById('year-timeline');
 
+  // On mobile the stats panel sits above the show cards, so start it closed.
+  if (window.matchMedia('(max-width: 960px)').matches) {
+    statsBody.classList.add('collapsed');
+    statsArrow.classList.remove('open');
+  }
+
   /* ── Helpers ──────────────────────────────────────────────── */
   function getAllSongs(show) {
     const s = show.sets || {};
