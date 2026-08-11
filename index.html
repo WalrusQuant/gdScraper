@@ -10,33 +10,34 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* Steal Your Face / tape-trader palette — red, blue, cream, gold on deep purple-black */
     :root {
-      --bg: #0a0a0a;
-      --bg-warm: #0e0e0e;
-      --surface: #161616;
-      --card: #141414;
-      --card-hover: #1c1c1c;
-      --border: #2a2a2a;
-      --border-light: #3a3a3a;
-      --red: #e63328;
-      --red-dim: rgba(230, 51, 40, 0.15);
-      --gold: #f5a623;
-      --gold-dim: rgba(245, 166, 35, 0.12);
-      --purple: #9b59b6;
-      --purple-dim: rgba(155, 89, 182, 0.12);
-      --teal: #2ecc71;
-      --teal-dim: rgba(46, 204, 113, 0.12);
-      --blue: #3498db;
-      --blue-dim: rgba(52, 152, 219, 0.12);
-      --orange: #f58220;
-      --orange-dim: rgba(245, 130, 32, 0.12);
-      --yellow: #f5c518;
-      --green: #27ae60;
-      --cream: #f0ece4;
-      --text: #d4cfc6;
-      --text-secondary: #a09890;
-      --text-muted: #605850;
-      --text-faint: #3a3530;
+      --bg: #0b0a12;
+      --bg-warm: #12101c;
+      --surface: #1a1826;
+      --card: #14121e;
+      --card-hover: #1c1a2a;
+      --border: #2c2840;
+      --border-light: #3d3855;
+      --red: #e31c23;
+      --red-dim: rgba(227, 28, 35, 0.18);
+      --blue: #1e6bb8;
+      --blue-dim: rgba(30, 107, 184, 0.18);
+      --gold: #d4a017;
+      --gold-dim: rgba(212, 160, 23, 0.14);
+      --purple: #6b3fa0;
+      --purple-dim: rgba(107, 63, 160, 0.16);
+      --teal: #2a9d6e;
+      --teal-dim: rgba(42, 157, 110, 0.14);
+      --orange: #d4651a;
+      --orange-dim: rgba(212, 101, 26, 0.14);
+      --yellow: #e8c547;
+      --green: #2a9d6e;
+      --cream: #f3efe6;
+      --text: #e8e4dc;
+      --text-secondary: #a8a09a;
+      --text-muted: #6e6660;
+      --text-faint: #3a3548;
       --radius: 4px;
       --radius-lg: 8px;
     }
@@ -66,16 +67,16 @@
       background-size: 256px 256px;
     }
 
-    a { color: var(--orange); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { color: var(--cream); text-decoration: underline; }
     button { cursor: pointer; border: none; background: none; font-family: inherit; color: inherit; }
 
     /* ─── Header ─────────────────────────────────────────────── */
     #site-header {
       position: relative;
-      padding: 3.5rem 2rem 2.5rem;
+      padding: 3rem 1.5rem 2.25rem;
       text-align: center;
-      overflow: hidden;
+      overflow: visible; /* do not clip title glyphs */
       border-bottom: none;
     }
 
@@ -84,11 +85,10 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse at 15% 60%, rgba(230, 51, 40, 0.10) 0%, transparent 45%),
-        radial-gradient(ellipse at 85% 30%, rgba(52, 152, 219, 0.08) 0%, transparent 45%),
-        radial-gradient(ellipse at 50% 85%, rgba(245, 166, 35, 0.07) 0%, transparent 40%),
-        radial-gradient(ellipse at 35% 20%, rgba(46, 204, 113, 0.06) 0%, transparent 40%),
-        linear-gradient(180deg, #0a0a0a 0%, #0e0e0e 100%);
+        radial-gradient(ellipse at 20% 70%, rgba(227, 28, 35, 0.16) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 25%, rgba(30, 107, 184, 0.14) 0%, transparent 48%),
+        radial-gradient(ellipse at 50% 100%, rgba(107, 63, 160, 0.10) 0%, transparent 42%),
+        linear-gradient(180deg, #0b0a12 0%, #12101c 100%);
       z-index: 0;
     }
 
@@ -98,13 +98,13 @@
       inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       background-size: 200px 200px;
-      opacity: 0.04;
+      opacity: 0.035;
       mix-blend-mode: overlay;
       z-index: 1;
       pointer-events: none;
     }
 
-    .header-content { position: relative; z-index: 2; }
+    .header-content { position: relative; z-index: 2; overflow: visible; }
 
     .header-eyebrow {
       font-family: 'IBM Plex Mono', monospace;
@@ -113,53 +113,61 @@
       letter-spacing: 3px;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
       opacity: 0;
       animation: fade-in-down 0.8s ease 0.2s forwards;
     }
 
+    /* Solid cream + SYF red/blue glow — no background-clip (clips glyphs) */
     #site-header h1 {
       font-family: 'Righteous', cursive;
-      font-size: clamp(2.5rem, 7vw, 4.8rem);
+      font-size: clamp(2.75rem, 8vw, 5rem);
       font-weight: 400;
-      letter-spacing: 2px;
-      line-height: 1.0;
+      letter-spacing: 0.04em;
+      line-height: 1.25;
+      padding: 0.15em 0.1em 0.2em;
+      margin: 0 auto;
+      max-width: 100%;
+      color: var(--cream);
+      -webkit-text-fill-color: var(--cream);
+      background: none;
+      filter: none;
+      overflow: visible;
       opacity: 0;
       animation: fade-in-down 0.8s ease 0.3s forwards;
-      background: linear-gradient(180deg, var(--yellow) 0%, var(--orange) 40%, var(--red) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 30px rgba(245, 130, 32, 0.2));
+      text-shadow:
+        0 0 28px rgba(227, 28, 35, 0.35),
+        0 0 56px rgba(30, 107, 184, 0.22),
+        0 2px 0 rgba(0, 0, 0, 0.35);
     }
 
     .header-subtitle {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 300;
+      font-size: 0.9rem;
+      font-weight: 400;
       font-style: normal;
-      letter-spacing: 2px;
+      letter-spacing: 0.12em;
       text-transform: lowercase;
-      color: var(--text-muted);
-      margin-top: 0.4rem;
+      color: var(--text-secondary);
+      margin-top: 0.35rem;
       opacity: 0;
       animation: fade-in-down 0.8s ease 0.5s forwards;
     }
 
-    /* ─── Header decorative line ─────────────────────────────── */
+    /* ─── Header decorative line — SYF red → blue ───────────── */
     .header-rule {
-      width: 100px;
-      height: 2px;
-      margin: 1rem auto 0;
-      background: linear-gradient(90deg, transparent, var(--red), var(--orange), var(--teal), var(--blue), transparent);
-      opacity: 0.8;
-      border-radius: 1px;
+      width: 120px;
+      height: 3px;
+      margin: 1.1rem auto 0;
+      background: linear-gradient(90deg, var(--red), var(--gold), var(--blue));
+      opacity: 0.9;
+      border-radius: 2px;
     }
 
     #header-stats {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
+      gap: 1.25rem;
       flex-wrap: wrap;
       margin-top: 1.5rem;
       opacity: 0;
@@ -168,24 +176,28 @@
 
     .stat-chip {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.68rem;
+      font-size: 0.7rem;
       color: var(--text-secondary);
       letter-spacing: 0.3px;
     }
 
     .stat-chip strong {
-      color: var(--gold);
+      color: var(--cream);
       font-weight: 500;
     }
+    .stat-chip:nth-child(1) strong { color: var(--red); }
+    .stat-chip:nth-child(2) strong { color: var(--gold); }
+    .stat-chip:nth-child(3) strong { color: var(--blue); }
+    .stat-chip:nth-child(4) strong { color: var(--cream); }
 
-    /* Psychedelic color strip */
+    /* SYF color strip */
     .perf-edge {
       position: relative;
       height: 3px;
-      background: linear-gradient(90deg, var(--red), var(--orange), var(--gold), var(--teal), var(--blue), var(--purple), var(--red));
+      background: linear-gradient(90deg, var(--red), var(--gold), var(--blue), var(--purple), var(--red));
       background-size: 200% 100%;
-      animation: color-slide 8s linear infinite;
-      opacity: 0.7;
+      animation: color-slide 10s linear infinite;
+      opacity: 0.85;
     }
 
     @keyframes color-slide {
@@ -198,7 +210,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(10, 10, 10, 0.94);
+      background: rgba(11, 10, 18, 0.94);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
@@ -234,12 +246,12 @@
     .year-btn:hover { background: rgba(245, 166, 35, 0.08); }
 
     .year-btn.active {
-      background: var(--orange-dim);
+      background: var(--red-dim);
     }
 
-    .year-btn.active .year-label { color: var(--orange); }
-    .year-btn.active .year-bar-fill { background: var(--orange); }
-    .year-btn.active .year-count { color: var(--orange); }
+    .year-btn.active .year-label { color: var(--red); }
+    .year-btn.active .year-bar-fill { background: var(--red); }
+    .year-btn.active .year-count { color: var(--cream); }
 
     .year-count {
       font-family: 'IBM Plex Mono', monospace;
@@ -302,26 +314,26 @@
 
     #search-input::placeholder { color: var(--text-muted); font-weight: 300; }
     #search-input:focus {
-      border-color: var(--orange);
-      box-shadow: 0 0 0 3px var(--orange-dim);
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px var(--blue-dim);
     }
 
     #active-filter {
       display: none;
       align-items: center;
       gap: 0.4rem;
-      background: var(--orange-dim);
-      border: 1px solid rgba(243, 156, 18, 0.3);
+      background: var(--red-dim);
+      border: 1px solid rgba(227, 28, 35, 0.35);
       border-radius: 20px;
       padding: 0.25rem 0.65rem;
       font-size: 0.75rem;
       font-weight: 500;
-      color: var(--orange);
+      color: var(--cream);
     }
 
     #active-filter.visible { display: inline-flex; }
-    #active-filter button { color: var(--orange); font-size: 1rem; line-height: 1; padding: 0; }
-    #active-filter button:hover { color: var(--red); }
+    #active-filter button { color: var(--red); font-size: 1rem; line-height: 1; padding: 0; }
+    #active-filter button:hover { color: var(--cream); }
 
     #clear-btn {
       font-size: 0.75rem;
@@ -380,50 +392,63 @@
     }
 
     .show-card:hover {
-      border-color: rgba(245, 166, 35, 0.35);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+      border-color: rgba(227, 28, 35, 0.4);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
       transform: translateY(-1px);
     }
 
     .show-card.expanded {
-      border-color: var(--gold);
-      box-shadow: 0 0 30px rgba(245, 166, 35, 0.06), 0 8px 40px rgba(0, 0, 0, 0.5);
+      border-color: var(--red);
+      box-shadow: 0 0 0 1px rgba(227, 28, 35, 0.25), 0 8px 40px rgba(0, 0, 0, 0.5);
       cursor: default;
       grid-column: 1 / -1;
       transform: none;
     }
 
+    /* Stacked header: venue full width, badge below — never side-by-side overlap */
     .card-header {
-      padding: 1.1rem 1.2rem 0.9rem;
+      padding: 1rem 1.1rem 0.95rem;
       display: flex;
-      align-items: flex-start;
-      gap: 1rem;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.45rem;
       position: relative;
+      overflow: hidden;
     }
 
-    /* Watermark year behind card content */
+    /* Watermark year — dim, never competes with title */
     .card-year-watermark {
       position: absolute;
-      right: 12px;
-      top: -4px;
+      right: 8px;
+      top: 4px;
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 4.2rem;
+      font-size: 2.75rem;
       font-weight: 500;
       color: var(--text-faint);
-      opacity: 0.10;
+      opacity: 0.35;
       line-height: 1;
       pointer-events: none;
       user-select: none;
+      z-index: 0;
     }
 
-    .card-meta { flex: 1; min-width: 0; position: relative; z-index: 1; }
+    .card-meta {
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+      width: 100%;
+      padding-right: 2.75rem; /* clear year watermark */
+    }
 
     .card-venue {
       font-family: 'DM Sans', sans-serif;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 600;
       color: var(--cream);
-      line-height: 1.25;
+      line-height: 1.3;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      hyphens: auto;
     }
 
     .card-location {
@@ -431,6 +456,7 @@
       font-weight: 400;
       color: var(--text-secondary);
       margin-top: 0.2rem;
+      line-height: 1.35;
     }
 
     .card-date {
@@ -440,19 +466,23 @@
       margin-top: 0.25rem;
     }
 
+    /* Short meta chip under venue — full width, wraps if needed */
     .card-song-count {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       font-weight: 500;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 0.2rem 0.55rem;
+      background: rgba(30, 107, 184, 0.12);
+      border: 1px solid rgba(30, 107, 184, 0.28);
+      border-radius: 4px;
+      padding: 0.28rem 0.5rem;
       color: var(--text-secondary);
-      flex-shrink: 0;
-      white-space: nowrap;
+      align-self: flex-start;
+      white-space: normal;
+      line-height: 1.35;
+      max-width: 100%;
       position: relative;
       z-index: 1;
+      margin-top: 0.15rem;
     }
 
     /* ─── Expanded Card Body ─────────────────────────────────── */
@@ -825,8 +855,8 @@
     .view-tab:hover { color: var(--text-secondary); }
 
     .view-tab.active {
-      color: var(--orange);
-      border-bottom-color: var(--orange);
+      color: var(--red);
+      border-bottom-color: var(--red);
     }
 
     /* ─── Stats View ─────────────────────────────────────────── */
@@ -1339,7 +1369,7 @@
       letter-spacing: 0.5px;
       color: var(--text-secondary);
       background: transparent;
-      border: 1px solid rgba(243, 156, 18, 0.3);
+      border: 1px solid rgba(227, 28, 35, 0.35);
       border-radius: 20px;
       padding: 0.3rem 0.85rem;
       transition: all 0.25s;
@@ -1347,9 +1377,9 @@
     }
 
     #random-show-btn:hover {
-      color: var(--orange);
-      border-color: var(--orange);
-      background: var(--orange-dim);
+      color: var(--cream);
+      border-color: var(--red);
+      background: var(--red-dim);
     }
 
     /* ─── Iconic Transitions ─────────────────────────────────── */
@@ -1939,18 +1969,19 @@
 
     const totalSongs = run.shows.reduce((sum, s) => sum + getAllSongs(s).filter(isSong).length, 0);
     const nightCount = run.shows.length;
+    // Short chip only — long "at this venue in YEAR" text was crushing venue titles
     const nightLabel = nightCount === 1
-      ? '1 show'
-      : nightCount + ' shows at this venue in ' + run.year;
+      ? `1 show · ${totalSongs} songs`
+      : `${nightCount} shows · ${totalSongs} songs`;
 
     card.innerHTML = `
       <div class="card-header">
-        <span class="card-year-watermark">${run.year}</span>
+        <span class="card-year-watermark" aria-hidden="true">${run.year}</span>
         <div class="card-meta">
           <div class="card-venue">${escHtml(run.venue || 'Unknown Venue')}</div>
           <div class="card-location">${escHtml(formatLocation(run.city, run.state))}</div>
         </div>
-        <div class="card-song-count">${escHtml(nightLabel)} &middot; ${totalSongs} songs</div>
+        <div class="card-song-count">${escHtml(nightLabel)}</div>
       </div>
       <div class="card-body">
         <div class="card-divider"></div>
