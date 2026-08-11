@@ -1605,6 +1605,10 @@
   function stripTrailingArrow(raw) {
     let s = (raw || '').trim();
     while (/\s*->\s*$/.test(s)) s = s.replace(/\s*->\s*$/, '').trim();
+    while (/\s*>\s*$/.test(s)) s = s.replace(/\s*>\s*$/, '').trim();
+    // Archive tags: trailing * . + and short set codes like (S) (T)
+    s = s.replace(/[\s*.+]+$/, '').trim();
+    s = s.replace(/\s*\([A-Za-z0-9]{1,3}\)\s*$/g, '').trim();
     return s;
   }
 
@@ -1658,22 +1662,79 @@
 
   const EXCLUDED_SEGMENTS = new Set([
     'drums', 'space', 'drums/space', 'drum solo', 'jam', 'tuning', 'and', 'ejs',
+    'around jam', 'acoustic set', 'broadcast', 'averages', '?????',
   ]);
 
+  /**
+   * True for playable song titles; false for guest notes, Comments:,
+   * set labels, separator lines, multi-song lists, and other archive junk.
+   * Used for counts, rare pills, stats, and bustouts.
+   */
   function isSong(name) {
     if (!name) return false;
     const s = name.trim();
-    const n = normalize(s);
-    if (!n || n.startsWith('[')) return false;
-    if (EXCLUDED_SEGMENTS.has(n)) return false;
-    // Filter data junk: starts with digit (e.g. "15 Songs", "1. Bird Song  1/24/93 ...")
+    if (!s) return false;
+
+    // Guest notes / markup / separators
+    if (/^[+\-*#(?\-=_]/.test(s)) return false;
+    if (/^[\-\?=_\s.]+$/.test(s)) return false;
+    if (!/[a-zA-Z]/.test(s)) return false;
     if (/^\d/.test(s)) return false;
-    // Multiple consecutive spaces = tabular data
-    if (/  /.test(s)) return false;
-    // Statistical/notes junk
-    if (/ave:|songs? seen|songs$|alphabetical|take care|longest gap/i.test(s)) return false;
-    // Way too long for a song name
-    if (s.length > 55) return false;
+    if (/  /.test(s)) return false; // tabular junk
+
+    const base = stripTrailingArrow(s);
+    if (!base || base.length < 2) return false;
+    if (base.length > 40) return false;
+
+    const n = normalize(base);
+    if (n.startsWith('[')) return false;
+    if (EXCLUDED_SEGMENTS.has(n)) return false;
+    // Single throwaway tokens from dump headers
+    if (/^(by|where|enjoy!!|weir\)\))$/i.test(n)) return false;
+    if (/^(and last date|dates should be listed)$/i.test(n)) return false;
+
+    // Explicit non-song prefixes / section headers from CMU text
+    if (/^(comments?|notes?|subject|soundcheck|encore|set\s*[i1-3ivx]*)\s*:/i.test(base)) return false;
+    if (/^(first time seen|mm\/dd\/yy|sg\s*=|sl\s*=|tour\s+\d)/i.test(base)) return false;
+    if (/^(acoustic set|set\s*[i1-3]|encore)\s*:?\s*$/i.test(base)) return false;
+    if (/:\s*$/.test(base)) return false; // "Encore Songs:", "West Coast (5 shows):"
+    if (/\(\d+\s*shows?\)/i.test(base)) return false;
+    if (/%$/.test(base)) return false;
+
+    // Mid-line transitions / multi-song dumps (trailing -> already stripped)
+    if (/->|>/.test(base)) return false;
+    if (/;/.test(base)) return false;
+    // Real GD titles almost never use commas — dumps do ("Eternity, Liberty")
+    if (/,/.test(base)) return false;
+    // Broken parens from truncated archive lines
+    if (/\([^)]*$/.test(base) || /^[^()]*\)$/.test(base)) return false;
+
+    // Meta / guest / DeadStats dump prose
+    if (/\b(with |w\/|guest|feat\.|opened|benefit|memorial|cancelled?|broadcast|taper|soundcheck|board patch|technical|abbrev|average|setlist|year in review|first time in|appeared for|longest gap|songs? seen|alphabetical|take care|gdead\.|berkeley\.edu|friends at|cleanest arena|subject:|deadstats|every time played|chronological|year-by-year|group songs|instrumentals|examples|month-by-month|show by show|set length|song attributes|openers and closers|pay-per-view|thanks for writing|database is updated|use it for|one per line|in the future|include all shows|to tapes from|uniqueness of|days played|months\/days|jam featured|featured bruce)\b/i.test(base)) {
+      return false;
+    }
+    if (/ave:|songs$/i.test(s)) return false;
+    if (/@|https?:|www\./i.test(base)) return false;
+    // Credit / dump lines, not songs
+    if (/^eric j\./i.test(base)) return false;
+    if (/^randy jackson$/i.test(base)) return false;
+    if (/use it in peace/i.test(base)) return false;
+    if (/\bby the\b/i.test(base)) return false; // "Chanting by the Gyoto Monks"
+    if (/mardi gras parade/i.test(base)) return false;
+
+    const words = base.split(/\s+/).filter(Boolean);
+    if (!words.length || words.length > 6) return false;
+    // Spaced single letters: "A C A L N Y …"
+    if (words.length >= 4 && words.every(w => /^[A-Za-z]$/.test(w))) return false;
+    // ALL-CAPS dump headers ("EVERY TIME PLAYED", "CHRONOLOGICAL INFO")
+    if (words.length >= 2 && words.every(w => w === w.toUpperCase() && /[A-Z]/.test(w))) return false;
+
+    // Instrument / role-only lines
+    if (/^(bass|guitar|piano|drums|vocals?|harmonica|accordion|accordian)\b/i.test(base)) return false;
+
+    // Parenthetical stage notes that aren't part of a known title pattern
+    if (/\([^)]{8,}\)/.test(base)) return false; // "(New Phil Tune)", "(T - very little)"
+
     return true;
   }
 
@@ -2246,11 +2307,12 @@
       if (show.state) stateCount[show.state] = (stateCount[show.state] || 0) + 1;
     });
 
-    // Bustouts: songs played exactly once (display names)
+    // Bustouts: real song titles played exactly once (isSong already strips archive junk)
     const bustouts = Object.entries(songPlayCounts)
       .filter(([, c]) => c === 1)
       .map(([k]) => displayByKey[k] || k)
-      .sort();
+      .filter(name => isSong(name)) // belt-and-suspenders on display strings
+      .sort((a, b) => a.localeCompare(b));
 
     const years = Object.keys(songsByYear).sort();
     let delay = 0;
@@ -2305,7 +2367,7 @@
     bustCard.innerHTML = `
       <div class="stats-card-header">
         <span class="stats-card-title">Bustouts</span>
-        <span class="stats-card-subtitle">${bustouts.length} songs played only once</span>
+        <span class="stats-card-subtitle">${bustouts.length} titles played exactly once</span>
       </div>
       <div class="stats-card-body">
         <div class="bustout-grid">
